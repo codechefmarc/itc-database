@@ -83,7 +83,7 @@
 @if(Auth::user())
 <div class="{{ $mobile ? 'border-t border-gray-200 pt-3 mt-3' : 'relative ml-2 pl-2 border-l border-gray-200' }}" x-data="{ open: false }" @click.outside="open = false">
   <button @click="open = !open" class="{{ $dropdownBtn }}">
-    <span>{{ Auth::user()->first_name }}</span>
+    <span>Hi, {{ Auth::user()->first_name }}</span>
     <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
     </svg>

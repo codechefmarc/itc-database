@@ -9,6 +9,7 @@ return [
   // Admin.
   'users.admin',
   'laptops.admin',
+  'laptops.addnew',
   'laptops.edit',
   'laptops.reports',
   'support.admin',

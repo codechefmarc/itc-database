@@ -55,10 +55,10 @@ class ActivityController extends Controller {
     $device = Device::findBySrjcOrSerial($identifier);
 
     if (!$device) {
-      if ($user->cannot('laptops.admin')) {
+      if ($user->cannot('laptops.addnew')) {
         return redirect()->back()
           ->withInput()
-          ->with('error', 'Device not found. Students cannot create new devices. Please contact ITC staff for assistance.');
+          ->with('error', 'Device not found. The ' . $user->roles->first()->display_name . ' role cannot create new devices. Please contact ITC staff for assistance.');
       }
       if ($isCreatingDevice) {
         $device = Device::create([

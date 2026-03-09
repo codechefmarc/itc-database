@@ -19,19 +19,19 @@ class RoleSeeder extends Seeder {
       Permission::firstOrCreate(['name' => $permission]);
     }
 
-    $admin = Role::create(['name' => 'admin', 'display_name' => 'Administrator']);
+    $admin = Role::firstOrCreate(['name' => 'admin', 'display_name' => 'Administrator']);
     $admin->givePermissionTo(Permission::all());
 
-    $itStaff = Role::create(['name' => 'it_staff', 'display_name' => 'IT Staff']);
-    $itStaff->givePermissionTo(['laptops.edit', 'laptops.reports']);
+    $itStaff = Role::firstOrCreate(['name' => 'it_staff', 'display_name' => 'IT Staff']);
+    $itStaff->givePermissionTo(['laptops.edit', 'laptops.reports', 'laptops.addnew']);
 
-    $laptopReporting = Role::create(['name' => 'read_only_laptop', 'display_name' => 'Laptop Reporting']);
+    $laptopReporting = Role::firstOrCreate(['name' => 'read_only_laptop', 'display_name' => 'Laptop Reporting']);
     $laptopReporting->givePermissionTo(['laptops.reports']);
 
-    $supportReporting = Role::create(['name' => 'read_only_support', 'display_name' => 'Support Reporting']);
+    $supportReporting = Role::firstOrCreate(['name' => 'read_only_support', 'display_name' => 'Support Reporting']);
     $supportReporting->givePermissionTo(['walkin.reports']);
 
-    $student = Role::create(['name' => 'student', 'display_name' => 'Student']);
+    $student = Role::firstOrCreate(['name' => 'student', 'display_name' => 'Student']);
     $student->givePermissionTo(['laptops.edit', 'laptops.reports', 'walkin.edit']);
   }
 

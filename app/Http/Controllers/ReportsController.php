@@ -280,6 +280,7 @@ class ReportsController extends Controller {
     $selectedCategory = $request->input('category_id');
     $escalated = $request->input('escalated');
     $dateRange = $request->input('date_range');
+    $shift = $request->input('shift');
 
     $startDate = NULL;
     $endDate = NULL;
@@ -290,29 +291,78 @@ class ReportsController extends Controller {
       $endDate = $parts[1] ?? $parts[0];
     }
 
+    $timePeriodStart = ' 00:00:00';
+    $timePeriodEnd = ' 23:59:59';
+
+    if ($shift) {
+      switch ($shift) {
+        case 'morning':
+          $timePeriodStart = ' 09:00:00';
+          $timePeriodEnd = ' 10:59:59';
+          break;
+
+        case 'noon':
+          $timePeriodStart = ' 11:00:00';
+          $timePeriodEnd = ' 12:59:59';
+          break;
+
+        case 'afternoon':
+          $timePeriodStart = ' 13:00:00';
+          $timePeriodEnd = ' 14:59:59';
+          break;
+
+        case 'evening':
+          $timePeriodStart = ' 15:00:00';
+          $timePeriodEnd = ' 16:59:59';
+          break;
+
+        default:
+          $timePeriodStart = ' 00:00:00';
+          $timePeriodEnd = ' 23:59:59';
+          break;
+      }
+    }
+
     $query = WalkInLog::query();
 
     if ($startDate && $endDate) {
-      $query->whereBetween('created_at', [$startDate . ' 00:00:00', $endDate . ' 23:59:59']);
+      if ($shift === 'outside') {
+        $query->where(function ($q) use ($startDate, $endDate) {
+            $q->whereBetween('created_at', [
+              $startDate . ' 00:00:00',
+              $endDate . ' 08:59:59',
+            ])->orWhereBetween('created_at', [
+              $startDate . ' 17:00:00',
+              $endDate . ' 23:59:59',
+            ]);
+        });
+      }
+      else {
+        $query->whereBetween('created_at', [
+          $startDate . $timePeriodStart,
+          $endDate . $timePeriodEnd,
+        ]);
+      }
     }
 
     if ($escalated === '1') {
       $query->where('escalated', TRUE);
     }
 
-    // Total before category filter (for escalation percentage)
+    if ($selectedCategory) {
+      $query->whereHas('supportCategories', fn($q) => $q->where('support_categories.id', $selectedCategory));
+    }
+
+    // Totals AFTER all filters applied.
     $totalCount = (clone $query)->count();
     $totalEscalated = (clone $query)->where('escalated', TRUE)->count();
 
     if ($selectedCategory) {
-      $categoryQuery = (clone $query)
-        ->whereHas('supportCategories', fn($q) => $q->where('support_categories.id', $selectedCategory));
-
       $counts = collect([
         [
           'name'         => $categories->firstWhere('id', $selectedCategory)?->name,
-          'count'        => (clone $categoryQuery)->count(),
-          'avg_duration' => (clone $categoryQuery)->avg('duration_minutes'),
+          'count'        => (clone $query)->count(),
+          'avg_duration' => (clone $query)->avg('duration_minutes'),
         ],
       ]);
     }
@@ -322,9 +372,9 @@ class ReportsController extends Controller {
           ->whereHas('supportCategories', fn($q) => $q->where('support_categories.id', $category->id));
 
         return [
-          'name'             => $category->name,
-          'count'            => (clone $categoryQuery)->count(),
-          'avg_duration'     => (clone $categoryQuery)->avg('duration_minutes'),
+          'name'         => $category->name,
+          'count'        => (clone $categoryQuery)->count(),
+          'avg_duration' => (clone $categoryQuery)->avg('duration_minutes'),
         ];
       })
         ->filter(fn($row) => $row['count'] > 0)

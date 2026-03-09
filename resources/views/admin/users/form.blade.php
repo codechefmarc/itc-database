@@ -67,7 +67,7 @@
                 required
                 value="{{ old('email', $user->email ?? '') }}"
                 @cannot('users.admin') ? readonly @endcannot
-                class="block min-w-0 grow py-1.5 pl-3 pr-3 text-base text-gray-900 bg-gray-200 placeholder:text-gray-400 focus:outline-none sm:text-sm/6 read-only:bg-gray-300 read-only:cursor-not-allowed" />
+                class="block min-w-0 grow py-1.5 pl-3 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6 read-only:bg-gray-300 read-only:cursor-not-allowed" />
             </div>
             @error('email')
               <p class="text-xs text-red-500 font-semibold mt-1">{{ $message }}</p>
@@ -145,13 +145,9 @@
     </div>
 
     <div class="mt-6 flex items-center justify-end gap-x-6">
-    @can('users.admin')
-      <a href="{{ route('admin.users.index') }}" class="text-sm/6 font-semibold text-gray-900 cursor-pointer">Cancel</a>
-    @endcan
+      <a href="{{ auth()->user()->can('users.admin') ? route('admin.users.index') : route('welcome') }}" class="text-sm/6 font-semibold text-gray-900 cursor-pointer">Cancel</a>
 
-    @cannot('users.admin')
-      <a href="{{ route('welcome') }}" class="text-sm/6 font-semibold text-gray-900 cursor-pointer">Cancel</a>
-    @endcan
+
       <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
         {{ isset($user) ? 'Update User' : 'Create User' }}
       </button>
