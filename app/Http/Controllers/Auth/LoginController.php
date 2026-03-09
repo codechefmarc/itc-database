@@ -44,11 +44,17 @@ class LoginController extends Controller {
     if (Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
       $request->session()->regenerate();
       $user = Auth::user();
-      if (!$user->isReadOnly()) {
-        return redirect()->intended('/log');
+      if ($user->can('laptops.edit')) {
+        return redirect()->to(route('log'));
+      }
+      elseif ($user->can('laptops.reports')) {
+        return redirect()->to(route('search'));
+      }
+      elseif ($user->can('walkin.reports')) {
+        return redirect()->to(route('reports.walk_in_log'));
       }
       else {
-        return redirect()->intended('/search');
+        return redirect()->to(route('welcome'));
       }
     }
 

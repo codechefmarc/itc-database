@@ -24,6 +24,7 @@ class ActivityController extends Controller {
    * Create a new activity.
    */
   public function store() {
+    $user = Auth::user();
     // For use with the device details modal.
     $isCreatingDevice = request()->has('creating_device');
 
@@ -54,10 +55,10 @@ class ActivityController extends Controller {
     $device = Device::findBySrjcOrSerial($identifier);
 
     if (!$device) {
-      if (Auth::user()->hasRole('student')) {
+      if ($user->cannot('laptops.addnew')) {
         return redirect()->back()
           ->withInput()
-          ->with('error', 'Device not found. Students cannot create new devices. Please contact ITC staff for assistance.');
+          ->with('error', 'Device not found. The ' . $user->roles->first()->display_name . ' role cannot create new devices. Please contact ITC staff for assistance.');
       }
       if ($isCreatingDevice) {
         $device = Device::create([
