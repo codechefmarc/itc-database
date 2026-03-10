@@ -30,9 +30,10 @@
         @enderror
       </div>
 
-      <div class="w-full">
+      <div class="w-full hidden" id="description-area">
         <label for="description" class="block text-md font-medium text-gray-700 mb-2">
-          Description <small class="text-gray-500">(optional)</small>
+          Description
+          <span class="text-red-500 text-sm">*</span>
         </label>
         <textarea
           id="description"
@@ -107,8 +108,12 @@
 </form>
 
 <script>
-  const durationInput = document.getElementById('duration');
+  const durationInput = document.getElementById('duration_minutes');
   const hourConversion = document.getElementById('hour-conversion');
+  const descriptionArea = document.getElementById('description-area');
+  const descriptionInput = document.getElementById('description');
+  const otherCheckbox = Array.from(document.querySelectorAll('input[name="support_category_id[]"]'))
+    .find(cb => cb.nextElementSibling?.textContent.trim() === 'Other');
 
   durationInput.addEventListener('input', () => {
     const minutes = parseFloat(durationInput.value);
@@ -119,4 +124,15 @@
       hourConversion.textContent = 'minutes';
     }
   });
+
+  otherCheckbox.addEventListener('change', function(event) {
+    descriptionArea.classList.toggle('hidden', !this.checked);
+    descriptionInput.required = this.checked;
+  });
+
+  if (otherCheckbox.checked) {
+    descriptionArea.classList.remove('hidden');
+    descriptionInput.required = true;
+  }
+
 </script>

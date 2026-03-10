@@ -382,6 +382,17 @@ class ReportsController extends Controller {
         ->values();
     }
 
+    $otherCategory = $categories->firstWhere('name', 'Other');
+    $otherEntries = collect();
+
+    if ($otherCategory) {
+      $otherEntries = (clone $query)
+        ->whereHas('supportCategories', fn($q) => $q->where('support_categories.id', $otherCategory->id))
+        ->select('created_at', 'duration_minutes', 'escalated', 'description')
+        ->orderBy('created_at', 'desc')
+        ->get();
+    }
+
     return view('reports.walk-in-report', [
       'counts'           => $counts,
       'totalCount'       => $totalCount,
@@ -390,6 +401,7 @@ class ReportsController extends Controller {
       'selectedCategory' => $selectedCategory,
       'escalated'        => $escalated,
       'dateRange'        => $dateRange,
+      'otherEntries'     => $otherEntries,
     ]);
   }
 

@@ -136,6 +136,40 @@
   </div>
 @endif
 
+@if($otherEntries->isNotEmpty())
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mt-6">
+    <div class="px-6 py-4 border-b border-gray-100">
+      <h2 class="text-sm font-semibold text-gray-700">Other — Descriptions</h2>
+    </div>
+    <table class="min-w-full text-sm divide-y divide-gray-200">
+      <thead class="bg-gray-50 text-xs text-gray-500 uppercase tracking-wide">
+        <tr>
+          <th class="px-6 py-3 text-left">Date</th>
+          <th class="px-6 py-3 text-left">Description</th>
+          <th class="px-6 py-3 text-left">Duration</th>
+          <th class="px-6 py-3 text-left">Escalated</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        @foreach($otherEntries as $entry)
+          <tr class="hover:bg-gray-50">
+            <td class="px-6 py-3 text-gray-600 whitespace-nowrap">{{ $entry->created_at->format('M j, Y g:ia') }}</td>
+            <td class="px-6 py-3 text-gray-800">{{ $entry->description ?? '—' }}</td>
+            <td class="px-6 py-3 text-gray-600">{{ $entry->duration_minutes ? $entry->duration_minutes . ' min' : '—' }}</td>
+            <td class="px-6 py-3">
+              @if($entry->escalated)
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-700">Yes</span>
+              @else
+                <span class="text-gray-400">No</span>
+              @endif
+            </td>
+          </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
+@endif
+
 </div>
 
 </x-layout>
