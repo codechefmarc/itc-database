@@ -1,4 +1,4 @@
-@props(['statusFilterInfo' => null, 'poolName' => null, 'modelName' => null])
+@props(['statusFilterInfo' => null, 'poolName' => null, 'modelName' => null, 'selectedModel'=> null])
 
 @php
   // Check if this is a search results page (any search parameters present)
@@ -320,18 +320,7 @@ class="max-w-2xl mx-auto">
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label for="computer_model_id" class="block text-sm font-medium text-gray-700 mb-2">Model Number</label>
-          <input
-            type="text"
-            id="computer_model_id"
-            name="computer_model_id"
-            value="{{ $modelName }}"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="e.g. Dell OptiPlex 7090"
-          />
-          @error('computer_model_id')
-            <p class="text-xs text-red-500 font-semibold mt-1">{{ $message }}</p>
-          @enderror
+          <x-model-select :selected="$selectedModel ?? null" :required="false" />
         </div>
 
         <div>
