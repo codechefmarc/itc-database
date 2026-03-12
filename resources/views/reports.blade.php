@@ -30,14 +30,14 @@
       <ul>
         @foreach($active_device_model_counts as $device)
           @php
-            if ($device->model_number == "Unknown Model") {
+            if ($device->computerModel == "Unknown Model") {
               $link = route('search', [ 'show_empty_models' => 'true', 'current_status_only' => 'on', 'status_id' => 'not_surplus']);
             } else {
-              $link = route('search', [ 'model_number' => $device->model_number, 'current_status_only' => 'on', 'status_id' => 'not_surplus']);
+              $link = route('search', [ 'computer_model_id' => $device->computerModel, 'current_status_only' => 'on', 'status_id' => 'not_surplus']);
             }
           @endphp
           <li>
-            <a class="text-blue-500" href="{{ $link }}"> {{ $device->model_number }}</a> ({{ $device->device_count }})
+            <a class="text-blue-500" href="{{ $link }}"> {{ $device->computerModel->getFullNameAttribute() }}</a> ({{ $device->device_count }})
           </li>
         @endforeach
       </ul>
@@ -45,14 +45,14 @@
       <ul>
         @foreach($surplus_device_model_counts as $device)
           @php
-            if ($device->model_number == "Unknown Model") {
+            if ($device->computerModel == "Unknown Model") {
               $link = route('search', [ 'show_empty_models' => 'true', 'current_status_only' => 'on', 'status_id' => $surplus_status_id]);
             } else {
-              $link = route('search', [ 'model_number' => $device->model_number, 'current_status_only' => 'on', 'status_id' => $surplus_status_id]);
+              $link = route('search', [ 'computer_model_id' => $device->computerModel, 'current_status_only' => 'on', 'status_id' => $surplus_status_id]);
             }
           @endphp
           <li>
-            <a class="text-blue-500" href="{{ $link }}"> {{ $device->model_number }}</a> ({{ $device->device_count }})
+            <a class="text-blue-500" href="{{ $link }}"> {{ $device->computerModel->getFullNameAttribute() }}</a> ({{ $device->device_count }})
           </li>
         @endforeach
       </ul>

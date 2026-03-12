@@ -28,26 +28,4 @@ if (window.apiRoute === undefined) {
 }
 
 // Autocomplete.
-import TomSelect from 'tom-select';
-import "tom-select/dist/css/tom-select.min.css"
-
-if (document.getElementById('model_number')) {
-
-  new TomSelect('#model_number', {
-    create: true,
-    createOnBlur: true,
-    maxItems: 1,
-    load: function(query, callback) {
-      if (!query.length) return callback();
-
-      fetch(window.apiRoute + '?q=' + encodeURIComponent(query))
-      .then(response => response.json())
-      .then(json => {
-        callback(json.map(item => ({
-          value: item.model_number,
-          text: item.model_number
-        })));
-      }).catch(() => callback());
-    }
-  });
-}
+import './model-select.js';

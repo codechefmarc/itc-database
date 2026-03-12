@@ -113,7 +113,7 @@ class ReportsController extends Controller {
   private function getDeviceCounts($surplus = FALSE) {
     $surplusId = Status::getIdByName('Surplus');
 
-    $deviceCounts = Device::select('devices.model_number', DB::raw('count(DISTINCT devices.id) as device_count'))
+    $deviceCounts = Device::select('devices.computer_model_id', DB::raw('count(DISTINCT devices.id) as device_count'))
       ->join('activities', 'devices.id', '=', 'activities.device_id')
       ->join(DB::raw('(
         SELECT device_id, MAX(created_at) as max_date
@@ -234,7 +234,7 @@ class ReportsController extends Controller {
    *   A collection of objects with model_number and device_count properties.
    */
   private function getDeviceCountsByModel($filter = 'all') {
-    $query = Device::select('devices.model_number', DB::raw('count(DISTINCT devices.id) as device_count'))
+    $query = Device::select('devices.computer_model_id', DB::raw('count(DISTINCT devices.id) as device_count'))
       ->join('activities', 'devices.id', '=', 'activities.device_id')
       ->join(DB::raw('(
         SELECT device_id, MAX(created_at) as max_date
@@ -257,11 +257,11 @@ class ReportsController extends Controller {
     }
 
     $modelCounts = $query
-      ->groupBy('devices.model_number')
+      ->groupBy('devices.computer_model_id')
       ->get()
       ->map(function ($item) {
         return (object) [
-          'model_number' => $item->model_number ?? 'Unknown Model',
+          'computerModel' => $item->computerModel ?? 'Unknown Model',
           'device_count' => $item->device_count,
         ];
       })

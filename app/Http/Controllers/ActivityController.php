@@ -37,7 +37,7 @@ class ActivityController extends Controller {
     ];
 
     if ($isCreatingDevice) {
-      $basicRules['model_number'] = ['required'];
+      $basicRules['computer_model_id'] = ['required'];
       $basicRules['serial_number'] = ['required_without:srjc_tag'];
       $basicRules['pool_id'] = ['required', 'exists:pools,id'];
 
@@ -64,7 +64,7 @@ class ActivityController extends Controller {
         $device = Device::create([
           'srjc_tag' => $validated['srjc_tag'] ?? NULL,
           'serial_number' => $validated['serial_number'] ?? NULL,
-          'model_number' => $validated['model_number'],
+          'computer_model_id' => $validated['computer_model_id'],
           'pool_id' => $validated['pool_id'],
         ]);
 

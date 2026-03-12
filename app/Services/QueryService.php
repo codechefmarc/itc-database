@@ -58,17 +58,17 @@ class QueryService {
     }
 
     // Handle Model Number.
-    if ($request->filled('model_number')) {
+    if ($request->filled('computer_model_id')) {
       $query->whereHas('device', function ($q) use ($request) {
-        $q->where('model_number', 'LIKE', '%' . $request->model_number . '%');
+        $q->where('computer_model_id', '=', $request->computer_model_id);
       });
     }
 
     // Handle empty/null model number search.
     if ($request->has('show_empty_models') && $request->show_empty_models == 'true') {
       $query->whereHas('device', function ($q) {
-        $q->whereNull('model_number')
-          ->orWhere('model_number', '');
+        $q->whereNull('computer_model_id')
+          ->orWhere('computer_model_id', '');
       });
     }
 
@@ -147,14 +147,14 @@ class QueryService {
 
     // Handle Model Number.
     if ($request->filled('model_number')) {
-      $query->where('model_number', 'LIKE', '%' . $request->model_number . '%');
+      $query->where('computer_model_id', '=', $request->computer_model_id);
     }
 
     // Handle empty/null model number search.
     if ($request->has('show_empty_models') && $request->show_empty_models == 'true') {
       $query->where(function ($q) {
-        $q->whereNull('model_number')
-          ->orWhere('model_number', '');
+        $q->whereNull('computer_model_id')
+          ->orWhere('computer_model_id', '');
       });
     }
 

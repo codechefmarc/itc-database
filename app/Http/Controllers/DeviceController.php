@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ComputerModel;
 use App\Models\Device;
 use App\Models\Pool;
 use Illuminate\Http\Request;
@@ -19,8 +20,8 @@ class DeviceController extends Controller {
     $returnUrl = url()->previous();
     $pools = Pool::all();
     return view('device.edit', [
-      'device' => $device,
-      'pools' => $pools,
+      'device'   => $device,
+      'pools'    => $pools,
       'returnUrl' => $returnUrl,
     ]);
   }
@@ -29,7 +30,6 @@ class DeviceController extends Controller {
    * Update the specified resource in storage.
    */
   public function patch(Device $device, Request $request) {
-    // @todo Add LDAP authentication.
     $validationRules = [
       'srjc_tag' => [
         'nullable',
@@ -39,17 +39,17 @@ class DeviceController extends Controller {
       'serial_number' => [
         Rule::unique('devices', 'serial_number')->ignore($device->id),
       ],
-      'model_number' => ['required'],
-      'pool_id' => ['required'],
+      'computer_model_id' => ['required', 'exists:computer_models,id'],
+      'pool_id'           => ['required'],
     ];
 
     $validated = request()->validate($validationRules);
 
     $device->update([
-      'srjc_tag' => $validated['srjc_tag'],
-      'serial_number' => $validated['serial_number'],
-      'model_number' => $validated['model_number'],
-      'pool_id' => $validated['pool_id'],
+      'srjc_tag'          => $validated['srjc_tag'],
+      'serial_number'     => $validated['serial_number'],
+      'computer_model_id' => $validated['computer_model_id'],
+      'pool_id'           => $validated['pool_id'],
     ]);
 
     $returnUrl = $request->get('return_url', route('log'));

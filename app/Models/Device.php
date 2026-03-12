@@ -37,6 +37,13 @@ class Device extends Model {
   }
 
   /**
+   * Each device belongs to one computer model.
+   */
+  public function computerModel() {
+    return $this->belongsTo(ComputerModel::class, 'computer_model_id');
+  }
+
+  /**
    * Retrieves the latest activity for a given device.
    */
   public function latestActivity() {

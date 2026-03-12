@@ -65,6 +65,9 @@
     <a href="{{ route('admin.flagged_devices.index') }}" class="{{ $dropdownItem }}">Flagged Devices</a>
     @endcan
     @can('laptops.admin')
+    <a href="{{ route('computer-models.index') }}" class="{{ $dropdownItem }}">Manage Computer Models</a>
+    @endcan
+    @can('laptops.admin')
     <a href="{{ route('admin.library_comparison.index') }}" class="{{ $dropdownItem }}">Library Comparison</a>
     @endcan
     @can('laptops.admin')
