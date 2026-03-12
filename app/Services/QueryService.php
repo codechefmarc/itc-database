@@ -146,7 +146,7 @@ class QueryService {
     }
 
     // Handle Model Number.
-    if ($request->filled('model_number')) {
+    if ($request->filled('computer_model_id')) {
       $query->where('computer_model_id', '=', $request->computer_model_id);
     }
 
