@@ -51,6 +51,9 @@
               <a class="text-blue-500 text-lg hover:text-gray-800" title="Edit model" href="{{ route('computer-models.edit', $model->id) }}">
                 <i class="fa-solid fa-pen-to-square"></i>
               </a>
+              <a class="text-blue-500 text-lg hover:text-gray-800" title="Edit model" href="{{ route('search', [ 'computer_model_id' => $model->id, 'current_status_only' => 'on', 'status_id' => 'not_surplus']) }}">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </a>
             </td>
           </tr>
         @empty

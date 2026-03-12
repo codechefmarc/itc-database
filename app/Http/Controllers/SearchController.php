@@ -62,7 +62,13 @@ class SearchController extends Controller {
     $poolName = $this->getPoolName($request);
     $modelName = $this->getModelName($request);
 
-    return view('search', compact('activities', 'devices', 'statusFilterInfo', 'poolName', 'modelName'));
+    // Prepare model number.
+    $selectedModel = NULL;
+    if ($request->filled('computer_model_id')) {
+      $selectedModel = ComputerModel::find($request->computer_model_id);
+    }
+
+    return view('search', compact('activities', 'devices', 'statusFilterInfo', 'poolName', 'modelName', 'selectedModel'));
   }
 
   /**
