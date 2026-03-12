@@ -17,7 +17,7 @@ function initModelSelect() {
 
     load: (query, callback) => {
       if (!query.length) return callback();
-      fetch(`/api/computer-models/search?q=${encodeURIComponent(query)}`)
+      fetch(window.apiRoute + '?q=' + encodeURIComponent(query))
         .then(r => r.json())
         .then(callback)
         .catch(() => callback());
