@@ -23,7 +23,6 @@ Route::middleware(['auth', 'permission:laptops.admin'])->group(function () {
       Route::post('/compare', [LibraryComparisonController::class, 'compare'])->name('compare');
       Route::get('/recompare', [LibraryComparisonController::class, 'reCompare'])->name('recompare');
       Route::post('/update-status', [LibraryComparisonController::class, 'updateStatus'])->name('update-status');
-      Route::post('/add-device', [LibraryComparisonController::class, 'addDevice'])->name('add-device');
       Route::post('/flag-device', [LibraryComparisonController::class, 'flagDevice'])->name('flag-device');
       Route::post('/update-all', [LibraryComparisonController::class, 'updateAll'])->name('update-all');
       Route::post('/flag-all', [LibraryComparisonController::class, 'flagAll'])->name('flag-all');

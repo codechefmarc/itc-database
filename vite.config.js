@@ -8,7 +8,8 @@ export default defineConfig({
             input: [
               'resources/css/app.css',
               'resources/js/app.js',
-              'resources/js/taxonomy.js'
+              'resources/js/taxonomy.js',
+              'resources/js/model-select.js'
             ],
             refresh: true,
         }),

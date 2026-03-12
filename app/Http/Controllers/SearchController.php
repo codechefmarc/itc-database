@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ComputerModel;
 use App\Models\Pool;
 use App\Models\Status;
 use App\Services\QueryService;
@@ -27,7 +28,7 @@ class SearchController extends Controller {
         'date_range',
         'srjc_tag',
         'serial_number',
-        'model_number',
+        'computer_model_id',
         'pool_id',
         'notes',
       ]
@@ -35,7 +36,7 @@ class SearchController extends Controller {
 
     // With device search, only return results if no status or date is set.
     $hasDeviceSearchParams =
-      $request->hasAny(['srjc_tag', 'serial_number', 'model_number', 'pool_id'])
+      $request->hasAny(['srjc_tag', 'serial_number', 'computer_model_id', 'pool_id'])
       && $request->string('status_id') == 'any'
       && !$request->filled('date_range')
       && $request->string('notes')->isEmpty();
@@ -59,8 +60,9 @@ class SearchController extends Controller {
     // Prepare status filter info for display.
     $statusFilterInfo = $this->getStatusFilterInfo($request);
     $poolName = $this->getPoolName($request);
+    $modelName = $this->getModelName($request);
 
-    return view('search', compact('activities', 'devices', 'statusFilterInfo', 'poolName'));
+    return view('search', compact('activities', 'devices', 'statusFilterInfo', 'poolName', 'modelName'));
   }
 
   /**
@@ -123,6 +125,20 @@ class SearchController extends Controller {
 
     $pool = Pool::find((int) $poolId);
     return $pool ? $pool->name : NULL;
+  }
+
+  /**
+   * Get model name for display.
+   */
+  private function getModelName(Request $request) {
+    $modelId = $request->input('computer_model_id');
+
+    if (!$modelId || $modelId === '') {
+      return NULL;
+    }
+
+    $modelId = ComputerModel::find((int) $modelId);
+    return $modelId->getFullNameAttribute();
   }
 
 }

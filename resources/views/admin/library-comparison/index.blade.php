@@ -187,7 +187,7 @@
                           @if($row['device'])
                               <div class="font-medium text-gray-800">SRJC: {{ $row['device']->srjc_tag }}</div>
                               <div class="text-xs text-gray-500">SN: {{ $row['device']->serial_number }}</div>
-                              <div class="text-xs text-gray-500">{{ $row['device']->model_number }}</div>
+                              <div class="text-xs text-gray-500">{{ $row['device']->computerModel->getFullNameAttribute() }}</div>
                               @if($row['device']->pool && $row['device']->pool->id !== 1)
                                 <div class="text-xs text-violet-500">{{ $row['device']->pool?->name }}</div>
                               @endif

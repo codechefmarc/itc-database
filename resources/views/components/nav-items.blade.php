@@ -70,6 +70,7 @@
     @can('laptops.admin')
     <div class="{{ $mobile ? 'pl-2' : 'border-t border-gray-100 mt-1 pt-1' }}">
       @if(!$mobile)<p class="px-4 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wide">Taxonomy</p>@endif
+      <a href="{{ route('computer-models.index') }}" class="{{ $dropdownItem }}">Computer Models</a>
       <a href="{{ route('taxonomy.status.index') }}" class="{{ $dropdownItem }}">Statuses</a>
       <a href="{{ route('taxonomy.pool.index') }}" class="{{ $dropdownItem }}">Pools</a>
       <a href="{{ route('taxonomy.support_category.index') }}" class="{{ $dropdownItem }}">Support Categories</a>

@@ -64,7 +64,7 @@
 
     <script>
       // Set the API route to be used in the autocomplete script.
-      window.apiRoute = '{{ route("api.model-numbers") }}';
+      window.apiRoute = '{{ route("api.computer-models.search") }}';
     </script>
 
     @stack('footer_scripts')

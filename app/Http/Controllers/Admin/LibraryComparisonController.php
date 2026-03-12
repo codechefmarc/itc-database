@@ -217,35 +217,6 @@ class LibraryComparisonController extends Controller {
   }
 
   /**
-   * Add a new device and its initial activity.
-   */
-  public function addDevice(Request $request) {
-    $request->validate([
-      'srjc_tag'        => 'required|string|unique:devices,srjc_tag',
-      'serial_number'     => 'required|string|unique:devices,serial_number',
-      'model_name' => 'required|string|max:255',
-      'pool_id'    => 'required|exists:pools,id',
-      'status_id'  => 'required|exists:statuses,id',
-    ]);
-
-    DB::transaction(function () use ($request) {
-        $device = Device::create([
-          'srjc_tag'        => $request->srjc_tag,
-          'serial_number'     => $request->serial_number,
-          'model_name' => $request->model_name,
-          'pool_id'    => $request->pool_id,
-        ]);
-
-        Activity::create([
-          'device_id' => $device->id,
-          'status_id' => $request->status_id,
-        ]);
-    });
-
-    return back()->with('success', 'Device added successfully.');
-  }
-
-  /**
    * Flag a device for manual review (lost and paid case).
    */
   public function flagDevice(Request $request) {

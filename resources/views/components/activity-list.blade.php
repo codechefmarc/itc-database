@@ -42,7 +42,7 @@
             <td class="px-6 py-4 whitespace-nowrap">
               <div class="text-sm font-medium text-gray-900">SRJC: {{ $activity->device->srjc_tag }}</div>
               <div class="text-xs text-gray-500">{{ $activity->device->serial_number ? 'SN: ' . $activity->device->serial_number : '' }}</div>
-              <div class="text-xs text-gray-500">{{ $activity->device->model_number }}</div>
+              <div class="text-xs text-gray-500">{{ $activity->device->computerModel->getFullNameAttribute() }}</div>
               @if($activity->device->pool && $activity->device->pool->id !== 1)
                 <div class="text-xs text-violet-500">{{ $activity->device->pool->name }}</div>
               @endif
@@ -66,7 +66,7 @@
                     <a class="text-blue-500 text-lg font-semibold hover:text-gray-800" title="Edit activity" href="{{ route('activities.edit', $activity->id) }}"><i class="fa-solid fa-pen-to-square"></i></a>
                   </div>
               @endif
-              @if(auth()->user()->can('data-entry'))
+              @if(auth()->user()->can('laptops.admin'))
                   <div class="text-center text-sm text-gray-900">
                     <a class="text-blue-500 text-lg font-semibold hover:text-gray-800" title="Edit device" href="{{ route('devices.edit', $activity->device->id) }}"><i class="fa-solid fa-laptop-file"></i></a>
                   </div>

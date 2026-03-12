@@ -1,8 +1,8 @@
-@props(['statusFilterInfo' => null, 'poolName' => null])
+@props(['statusFilterInfo' => null, 'poolName' => null, 'modelName' => null])
 
 @php
   // Check if this is a search results page (any search parameters present)
-  $hasSearchParams = request()->hasAny(['status_id', 'srjc_tag', 'serial_number', 'model_number', 'date_range', 'pool_id', 'notes']);
+  $hasSearchParams = request()->hasAny(['status_id', 'srjc_tag', 'serial_number', 'computer_model_id', 'date_range', 'pool_id', 'notes']);
   $isCollapsed = $hasSearchParams; // Auto-collapse if search was performed
 @endphp
 
@@ -83,9 +83,9 @@ class="max-w-2xl mx-auto">
           </span>
         @endif
 
-        @if(request('model_number'))
+        @if(request('computer_model_id'))
           <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-blue-50 text-blue-700 text-sm rounded-md">
-            <strong>Model:</strong> {{ request('model_number') }}
+            <strong>Model:</strong> {{ $modelName }}
           </span>
         @endif
 
@@ -320,16 +320,16 @@ class="max-w-2xl mx-auto">
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label for="model_number" class="block text-sm font-medium text-gray-700 mb-2">Model Number</label>
+          <label for="computer_model_id" class="block text-sm font-medium text-gray-700 mb-2">Model Number</label>
           <input
             type="text"
-            id="model_number"
-            name="model_number"
-            value="{{ request('model_number') }}"
+            id="computer_model_id"
+            name="computer_model_id"
+            value="{{ $modelName }}"
             class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             placeholder="e.g. Dell OptiPlex 7090"
           />
-          @error('model_number')
+          @error('computer_model_id')
             <p class="text-xs text-red-500 font-semibold mt-1">{{ $message }}</p>
           @enderror
         </div>

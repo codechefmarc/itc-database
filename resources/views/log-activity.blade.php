@@ -1,6 +1,6 @@
 <x-layout>
   <x-slot:heading>
-    Log Activity
+    Log Checkout
   </x-slot:heading>
 
   <x-log-activity-form />
