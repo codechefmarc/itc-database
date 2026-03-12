@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 /**
  * Represents a computer model (e.g. Dell Latitude 5420).
@@ -49,10 +50,28 @@ class ComputerModel extends Model {
    * Returns the age of the model in years based on release_year or null.
    */
   public function getAgeInYearsAttribute(): ?int {
-    if (!$this->release_year) {
+    if (!$this->purchase_date && !$this->release_year) {
       return NULL;
     }
+    if ($this->purchase_date) {
+      return (int) $this->purchase_date->diffInYears(now());
+    }
     return now()->year - $this->release_year;
+  }
+
+  /**
+   * Format for age of model.
+   */
+  public function getAgeFormattedAttribute(): string {
+    $age = $this->age_in_years;
+    if ($age === NULL) {
+      return '—';
+    }
+    if ($age < 1) {
+      return '< 1 year';
+    }
+
+    return $age . ' ' . Str::plural('year', $age);
   }
 
   /**

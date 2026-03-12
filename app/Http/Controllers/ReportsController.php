@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use App\Models\ComputerModel;
 use App\Models\Device;
 use App\Models\Pool;
 use App\Models\Status;
 use App\Models\SupportCategory;
 use App\Models\WalkInLog;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -104,6 +106,7 @@ class ReportsController extends Controller {
       'surplus_device_model_counts' => $this->getDeviceCountsByModel('surplus'),
       'inactive_device_count' => $inactive_device_count,
       'surplus_status_id' => Status::getIdByName('Surplus'),
+      'devices_by_age' => $this->getDeviceCountsByAge(),
     ]);
   }
 
@@ -269,6 +272,57 @@ class ReportsController extends Controller {
       ->values();
 
     return $modelCounts;
+  }
+
+  /**
+   * Returns a report about devices by age, excluding surplus devices.
+   */
+  private function getDeviceCountsByAge() {
+    $surplusId = Status::getIdByName('Surplus');
+
+    return Device::select(
+      'devices.computer_model_id',
+      DB::raw('count(DISTINCT devices.id) as device_count'),
+      'computer_models.release_year',
+      'computer_models.purchase_date',
+      'computer_models.manufacturer',
+      'computer_models.model_name',
+    )
+      ->join('computer_models', 'devices.computer_model_id', '=', 'computer_models.id')
+      ->join('activities', 'devices.id', '=', 'activities.device_id')
+      ->join(DB::raw('(
+        SELECT device_id, MAX(created_at) as max_date
+        FROM activities
+        GROUP BY device_id
+      ) as latest'),
+      function ($join) {
+        $join->on('activities.device_id', '=', 'latest.device_id')
+          ->on('activities.created_at', '=', 'latest.max_date');
+      })
+      ->where('activities.status_id', '!=', $surplusId)
+      ->groupBy(
+        'devices.computer_model_id',
+        'computer_models.release_year',
+        'computer_models.purchase_date',
+        'computer_models.manufacturer',
+        'computer_models.model_name',
+      )
+      ->orderByRaw('COALESCE(YEAR(computer_models.purchase_date), computer_models.release_year) ASC')
+      ->get()
+      ->map(function ($item) {
+        $computerModel = new ComputerModel([
+          'purchase_date' => $item->purchase_date ? Carbon::parse($item->purchase_date) : NULL,
+          'release_year'  => $item->release_year,
+        ]);
+
+        return (object) [
+          'computer_model_id' => $item->computer_model_id,
+          'model_name'        => $item->manufacturer . ' ' . $item->model_name,
+          'device_count'      => $item->device_count,
+          'age_in_years'      => $computerModel->age_in_years,
+          'age_formatted'     => $computerModel->age_formatted,
+        ];
+      });
   }
 
   /**

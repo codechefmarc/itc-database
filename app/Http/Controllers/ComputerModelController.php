@@ -160,7 +160,7 @@ class ComputerModelController extends Controller {
     $validated = $request->validate([
       'manufacturer'  => ['required', 'string', 'max:100'],
       'model_name'    => ['required', 'string', 'max:200'],
-      'release_year'  => ['nullable', 'integer', 'min:1990', 'max:' . (now()->year + 1)],
+      'release_year'  => ['required', 'integer', 'min:1990', 'max:' . (now()->year + 1)],
       'purchase_date' => ['nullable', 'date'],
     ]);
 

@@ -26,7 +26,10 @@
       </li>
       <li><a class="text-blue-500" href="?report=all_devices">Total Devices</a> ({{ $total_device_count }})</li>
     </ul>
-    <h3 class="font-bold text-xl text-gray-600 mb-3 mt-3">Active Devices by Model</h3>
+    <details open>
+      <summary class="cursor-pointer font-bold text-xl text-gray-600 mb-3 mt-3">
+        Active Devices by Model
+      </summary>
       <ul>
         @foreach($active_device_model_counts as $device)
           @php
@@ -41,7 +44,12 @@
           </li>
         @endforeach
       </ul>
-    <h3 class="font-bold text-xl text-gray-600 mb-3 mt-3">Surplus Devices by Model</h3>
+    </details>
+
+    <details>
+      <summary class="cursor-pointer font-bold text-xl text-gray-600 mb-3 mt-3">
+        Surplus Devices by Model
+      </summary>
       <ul>
         @foreach($surplus_device_model_counts as $device)
           @php
@@ -56,6 +64,27 @@
           </li>
         @endforeach
       </ul>
+    </details>
+
+    <details>
+      <summary class="cursor-pointer font-bold text-xl text-gray-600 mb-3 mt-3">
+        Active Devices by Age
+      </summary>
+    <ul>
+        @foreach($devices_by_age as $device)
+          @php
+            if ($device->model_name == "Unknown Model") {
+              $link = route('search', [ 'show_empty_models' => 'true', 'current_status_only' => 'on', 'status_id' => 'not_surplus']);
+            } else {
+              $link = route('search', [ 'computer_model_id' => $device->computer_model_id, 'current_status_only' => 'on', 'status_id' => 'not_surplus']);
+            }
+          @endphp
+          <li>
+            {{ $device->age_formatted }} old - <a class="text-blue-500" href="{{ $link }}">{{ $device->model_name }}</a> ({{ $device->device_count }})
+          </li>
+        @endforeach
+      </ul>
+    </details>
   </div>
 
   <div class="report-quick-facts">

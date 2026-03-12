@@ -71,8 +71,8 @@ async function saveModelModal() {
 
   errorEl.textContent = '';
 
-  if (!manufacturer || !modelName) {
-    errorEl.textContent = 'Manufacturer and model name are required.';
+  if (!manufacturer || !modelName || !releaseYear) {
+    errorEl.textContent = 'Manufacturer, model name, and release year are required.';
     return;
   }
 

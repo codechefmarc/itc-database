@@ -60,7 +60,7 @@
         </div>
 
         <div>
-          <label for="release_year" class="block text-sm font-medium text-gray-700 mb-2">Release Year</label>
+          <label for="release_year" class="block text-sm font-medium text-gray-700 mb-2">Release Year <span class="text-red-500 text-sm">*</span></label>
           <div class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
             <input
               id="release_year"
@@ -70,6 +70,7 @@
               min="1990"
               max="{{ now()->year + 1 }}"
               placeholder="e.g. 2022"
+              required
               class="block min-w-0 grow py-1.5 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" />
           </div>
           @error('release_year')
