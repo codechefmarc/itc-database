@@ -38,7 +38,7 @@
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
               @if($model->age_in_years !== null)
                 <span class="{{ $model->age_in_years >= 5 ? 'text-red-500 font-semibold' : 'text-gray-900' }}">
-                  {{ $model->age_in_years }}yr
+                  {{ $model->age_formatted }}
                 </span>
               @else
                 —

@@ -80,7 +80,7 @@
             }
           @endphp
           <li>
-            {{ $device->age_formatted }} old - <a class="text-blue-500" href="{{ $link }}">{{ $device->model_name }}</a> ({{ $device->device_count }})
+            <span class="{{ $device->age_in_years >= 5 ? 'text-red-500 font-semibold' : 'text-gray-900' }}">{{ $device->age_formatted }}</span> - <a class="text-blue-500" href="{{ $link }}">{{ $device->model_name }}</a> ({{ $device->device_count }})
           </li>
         @endforeach
       </ul>

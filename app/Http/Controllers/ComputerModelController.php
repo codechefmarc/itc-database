@@ -12,8 +12,6 @@ class ComputerModelController extends Controller {
 
   /**
    * List all computer models for the admin page.
-   *
-   * GET /admin/computer-models
    */
   public function index() {
     $models = ComputerModel::withCount('devices')
@@ -26,8 +24,6 @@ class ComputerModelController extends Controller {
 
   /**
    * Show the form to create a new computer model.
-   *
-   * GET /admin/computer-models/create
    */
   public function create() {
     return view('admin.computer-models.form');
@@ -35,8 +31,6 @@ class ComputerModelController extends Controller {
 
   /**
    * Store a new computer model from the admin form.
-   *
-   * POST /admin/computer-models
    */
   public function store(Request $request) {
     $validated = $request->validate([
@@ -64,8 +58,6 @@ class ComputerModelController extends Controller {
 
   /**
    * Show the edit form for an existing computer model.
-   *
-   * GET /admin/computer-models/{model}/edit
    */
   public function edit(ComputerModel $model) {
     $model->loadCount('devices');
@@ -74,8 +66,6 @@ class ComputerModelController extends Controller {
 
   /**
    * Update an existing computer model.
-   *
-   * PATCH /admin/computer-models/{model}
    */
   public function patch(ComputerModel $model, Request $request) {
     $validated = $request->validate([
@@ -103,10 +93,7 @@ class ComputerModelController extends Controller {
   }
 
   /**
-   * Delete a computer model.
-   * Only allowed if no devices are assigned to it.
-   *
-   * DELETE /admin/computer-models/{model}
+   * Delete a computer model. Only allowed if no devices are assigned to it.
    */
   public function delete(ComputerModel $model) {
     if ($model->devices()->exists()) {
@@ -121,18 +108,15 @@ class ComputerModelController extends Controller {
   }
 
   /**
-   * Search computer models by manufacturer or model name.
-   * Returns JSON for TomSelect autocomplete.
-   *
-   * GET /api/computer-models/search?q=dell
+   * Search computer models by manufacturer or model name for TomSelect.
    */
   public function search(Request $request) {
     $query = $request->get('q', '');
 
     $models = ComputerModel::where(function ($q) use ($query) {
-        $q->where('manufacturer', 'LIKE', "%{$query}%")
-          ->orWhere('model_name', 'LIKE', "%{$query}%");
-      })
+      $q->where('manufacturer', 'LIKE', "%{$query}%")
+        ->orWhere('model_name', 'LIKE', "%{$query}%");
+    })
       ->orderBy('manufacturer')
       ->orderBy('model_name')
       ->limit(15)
@@ -151,10 +135,7 @@ class ComputerModelController extends Controller {
   }
 
   /**
-   * Create a new computer model from the inline modal (API).
-   * Returns JSON so TomSelect can auto-select the new model.
-   *
-   * POST /api/computer-models
+   * Create a new computer model from the inline modal (API) for TomSelect.
    */
   public function apiStore(Request $request) {
     $validated = $request->validate([
