@@ -23,7 +23,7 @@ class WalkInLog extends Model {
    * @var fillable
    */
   protected $fillable = [
-    'username',
+    'uid',
     'description',
     'escalated',
     'duration_minutes',
@@ -35,6 +35,13 @@ class WalkInLog extends Model {
    */
   public function supportCategories() {
     return $this->belongsToMany(SupportCategory::class, 'support_category_walk_in_log', 'walk_in_log_id', 'support_category_id');
+  }
+
+  /**
+   * Each walk_in_log belongs to one person.
+   */
+  public function user() {
+    return $this->belongsTo(User::class, 'uid');
   }
 
 }

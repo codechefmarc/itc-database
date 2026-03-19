@@ -58,7 +58,7 @@ class ActivityFactory extends Factory {
     return [
       'device_id' => $deviceId,
       'status_id' => Status::inRandomOrder()->first()->id,
-      'username' => fake()->firstName() . ' ' . fake()->lastName(),
+      'uid' => $this->faker->numberBetween(1, 5),
       'notes' => fake()->optional(0.3)->sentence(),
       'created_at' => fake()->dateTimeBetween('-1 week', 'now'),
     ];

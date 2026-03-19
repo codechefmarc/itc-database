@@ -54,7 +54,7 @@
               </span>
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-              {{ $activity->username }}
+              {{ $activity->user->full_name }}
             </td>
             <td class="px-6 py-4">
               <div class="text-sm text-gray-900">{{ $activity->notes }}</div>

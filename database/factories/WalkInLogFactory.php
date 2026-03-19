@@ -36,7 +36,7 @@ class WalkInLogFactory extends Factory {
   public function definition(): array {
 
     return [
-      'username' => fake()->firstName() . ' ' . fake()->lastName(),
+      'uid' => $this->faker->numberBetween(1, 5),
       'description' => fake()->optional(0.3)->sentence(),
       'created_at' => fake()->dateTimeBetween('-1 week', 'now'),
       'escalated' => fake()->boolean(20),

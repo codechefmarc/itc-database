@@ -47,7 +47,7 @@
 
 
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-              {{ $walkIn->username }}
+              {{ $walkIn->user->full_name }}
             </td>
             <td class="px-6 py-4">
               <div class="text-sm text-gray-900">{{ $walkIn->description }}</div>

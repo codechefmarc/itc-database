@@ -45,4 +45,25 @@ class User extends Authenticatable {
     ];
   }
 
+  /**
+   * Each user has many activities.
+   */
+  public function activities() {
+    return $this->hasMany(Activity::class, 'uid');
+  }
+
+  /**
+   * Each user has many walk in logs.
+   */
+  public function walkInLog() {
+    return $this->hasMany(WalkInLog::class, 'uid');
+  }
+
+  /**
+   * Gets the full name of the user.
+   */
+  public function getFullNameAttribute(): string {
+    return trim($this->first_name . ' ' . $this->last_name) ?: 'Unknown';
+  }
+
 }

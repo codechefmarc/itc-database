@@ -18,17 +18,17 @@ class WalkInLogController extends Controller {
    */
   public function walkInLog() {
     $supportCategories = SupportCategory::orderBy('weight', 'asc')->get();
-    $activeWalkIns = WalkInLog::with('supportCategories')
+    $activeWalkIns = WalkInLog::with(['supportCategories', 'user'])
       ->whereDate('created_at', today())
       ->where('duration_minutes', NULL)
       ->latest('updated_at')
       ->paginate(20);
-    $completedWalkIns = WalkInLog::with('supportCategories')
+    $completedWalkIns = WalkInLog::with(['supportCategories', 'user'])
       ->whereDate('created_at', today())
       ->whereNotNull('duration_minutes')
       ->latest('updated_at')
       ->paginate(20);
-    $activeWalkInsCurrentUser = $activeWalkIns->where('username', Auth::user()->first_name . ' ' . Auth::user()->last_name)->count();
+    $activeWalkInsCurrentUser = $activeWalkIns->where('uid', Auth::user()->id)->count();
     return view('components.walk-in.index', compact('supportCategories', 'activeWalkIns', 'completedWalkIns', 'activeWalkInsCurrentUser'));
   }
 
@@ -49,7 +49,7 @@ class WalkInLogController extends Controller {
     ]);
 
     WalkInLog::create([
-      'username' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
+      'uid' => Auth::user()->id,
       'description' => $validated['description'] ?? NULL,
       'escalated' => ($validated['escalate'] ?? 'no') === 'yes',
       'duration_minutes' => $validated['duration_minutes'] ?? NULL,

@@ -36,4 +36,11 @@ class Activity extends Model {
     return $this->belongsTo(Status::class);
   }
 
+  /**
+   * Each activity belongs to one person.
+   */
+  public function user() {
+    return $this->belongsTo(User::class, 'uid');
+  }
+
 }

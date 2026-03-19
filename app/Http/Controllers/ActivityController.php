@@ -32,7 +32,6 @@ class ActivityController extends Controller {
       'srjc_tag' => ['required_without:serial_number'],
       'serial_number' => ['required_without:srjc_tag'],
       'status_id' => ['required'],
-      'username' => ['nullable'],
       'notes' => ['nullable'],
     ];
 
@@ -111,7 +110,7 @@ class ActivityController extends Controller {
       'device_id' => $device->id,
       'status_id' => $validated['status_id'],
       'notes' => $validated['notes'],
-      'username' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
+      'uid' => Auth::user()->id,
     ]);
 
     // Saves the status for ease of adding multiple devices one after another.
