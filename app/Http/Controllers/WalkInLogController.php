@@ -29,7 +29,7 @@ class WalkInLogController extends Controller {
       ->latest('updated_at')
       ->paginate(20);
     $activeWalkInsCurrentUser = $activeWalkIns->where('uid', Auth::user()->id)->count();
-    return view('components.walk-in.index', compact('supportCategories', 'activeWalkIns', 'completedWalkIns', 'activeWalkInsCurrentUser'));
+    return view('walk-in.index', compact('supportCategories', 'activeWalkIns', 'completedWalkIns', 'activeWalkInsCurrentUser'));
   }
 
   /**

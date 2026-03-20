@@ -5,17 +5,17 @@
  * Routes for reports.
  */
 
-use App\Http\Controllers\Admin\AccessLogController;
-use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\Reports\AccessLogController;
+use App\Http\Controllers\Reports\ReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'permission:laptops.reports'])->prefix('reports')->name('reports.')->group(function () {
-    Route::get('/checkout-laptops', [ReportsController::class, 'checkoutLaptopReports'])->name('checkout_laptops');
+    Route::get('/checkout-laptops', [ReportController::class, 'checkoutLaptopReports'])->name('checkout_laptops');
 });
 
 
 Route::middleware(['auth', 'permission:walkin.reports'])->prefix('reports')->name('reports.')->group(function () {
-    Route::get('/walk-in-log', [ReportsController::class, 'walkInLog'])->name('walk_in_log');
+    Route::get('/walk-in-log', [ReportController::class, 'walkInLog'])->name('walk_in_log');
 });
 
 Route::middleware(['auth', 'permission:users.admin'])->prefix('admin')->name('admin.')->group(function () {

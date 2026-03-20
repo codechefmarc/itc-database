@@ -5,12 +5,12 @@
  * Defines routes for device management.
  */
 
-use App\Http\Controllers\ActivityController;
-use App\Http\Controllers\ComputerModelController;
-use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\Checkouts\ActivityController;
+use App\Http\Controllers\Checkouts\DeviceController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\Taxonomy\ComputerModelController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {

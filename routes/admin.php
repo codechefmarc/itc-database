@@ -1,12 +1,17 @@
 <?php
 
-use App\Http\Controllers\Admin\FlaggedDeviceController;
-use App\Http\Controllers\Admin\LibraryComparisonController;
+/**
+ * @file
+ * Provides admin routes.
+ */
+
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\PoolController;
-use App\Http\Controllers\StatusController;
-use App\Http\Controllers\SupportCategoryController;
+use App\Http\Controllers\Checkouts\FlaggedDeviceController;
+use App\Http\Controllers\Checkouts\LibraryComparisonController;
+use App\Http\Controllers\Taxonomy\PoolController;
+use App\Http\Controllers\Taxonomy\StatusController;
+use App\Http\Controllers\Taxonomy\SupportCategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'permission:users.admin'])->group(function () {

@@ -214,10 +214,10 @@ class="max-w-2xl mx-auto">
         }
       }">
         <div>
-            <x-status-select :search="TRUE" />
+            <x-checkouts.status-select :search="TRUE" />
         </div>
         <div>
-          <x-pool-select :search="TRUE" />
+          <x-checkouts.pool-select :search="TRUE" />
         </div>
         <div>
             @php
@@ -320,7 +320,7 @@ class="max-w-2xl mx-auto">
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <x-model-select :selected="$selectedModel ?? null" :required="false" />
+          <x-checkouts.model-select :selected="$selectedModel ?? null" :required="false" />
         </div>
 
         <div>

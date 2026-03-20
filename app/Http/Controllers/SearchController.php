@@ -83,7 +83,7 @@ class SearchController extends Controller {
       $selectedModel = ComputerModel::find($request->computer_model_id);
     }
 
-    return view('search', compact('activities', 'devices', 'statusFilterInfo', 'poolName', 'modelName', 'selectedModel'));
+    return view('search.index', compact('activities', 'devices', 'statusFilterInfo', 'poolName', 'modelName', 'selectedModel'));
   }
 
   /**
