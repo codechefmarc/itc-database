@@ -45,7 +45,7 @@
     <a href="{{ route('reports.walk_in_log') }}" class="{{ $dropdownItem }}">Walk-In Reports</a>
     @endcan
     @can('users.admin')
-    <a href="{{ route('reports.access_log') }}" class="{{ $dropdownItem }}">Access Log</a>
+    <a href="{{ route('admin.access_log') }}" class="{{ $dropdownItem }}">Access Log</a>
     @endcan
   </div>
 </div>

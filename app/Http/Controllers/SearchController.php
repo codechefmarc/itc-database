@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccessLog;
 use App\Models\ComputerModel;
 use App\Models\Pool;
 use App\Models\Status;
 use App\Services\QueryService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Handles search page.
@@ -47,6 +49,19 @@ class SearchController extends Controller {
       $query = QueryService::buildSearchQuery($request);
       $activities = $query->latest('created_at')->paginate(20);
       $activities->appends($request->query());
+
+      $searchParams = collect($request->all())
+        ->filter(fn($value) => !is_null($value) && $value !== '')
+        ->map(fn($value, $key) => ucfirst(str_replace('_', ' ', $key)) . ': ' . $value)
+        ->implode(', ');
+
+      AccessLog::create([
+        'user_id' => Auth::id(),
+        'action' => 'search',
+        'model_type' => 'Search',
+        'description' => 'Searched for: ' . $searchParams,
+      ]);
+
     }
 
     $devices = NULL;

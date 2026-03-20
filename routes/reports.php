@@ -18,6 +18,7 @@ Route::middleware(['auth', 'permission:walkin.reports'])->prefix('reports')->nam
     Route::get('/walk-in-log', [ReportsController::class, 'walkInLog'])->name('walk_in_log');
 });
 
-Route::middleware(['auth', 'permission:users.admin'])->prefix('admin')->name('reports.')->group(function () {
-  Route::get('/access-log', [AccessLogController::class, 'accessLog'])->name('access_log');
+Route::middleware(['auth', 'permission:users.admin'])->prefix('admin')->name('admin.')->group(function () {
+  Route::get('/access-log', [AccessLogController::class, 'index'])->name('access_log');
+  Route::delete('access-log/clear', [AccessLogController::class, 'destroy'])->name('access_log.destroy');
 });
