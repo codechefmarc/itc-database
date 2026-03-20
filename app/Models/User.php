@@ -60,6 +60,13 @@ class User extends Authenticatable {
   }
 
   /**
+   * Connects access logs to users.
+   */
+  public function accessLogs() {
+    return $this->hasMany(AccessLog::class);
+  }
+
+  /**
    * Gets the full name of the user.
    */
   public function getFullNameAttribute(): string {
