@@ -3,7 +3,7 @@
   {{ isset($model) ? 'Edit Computer Model' : 'Add Computer Model' }}
 </x-slot:heading>
 
-<form method="POST" action="{{ isset($model) ? route('taxonomy.computer_models.patch', $model->id) : route('computer-models.store') }}">
+<form method="POST" action="{{ isset($model) ? route('taxonomy.computer_models.patch', $model->id) : route('taxonomy.computer_models.store') }}">
   @csrf
   @if(isset($model))
     @method('PATCH')

@@ -13,7 +13,6 @@ class PageController extends Controller {
    * Handles 404 errors.
    */
   public function notfound(Request $request) {
-  dd('catchall hit: ' . $request->path());
   return view('errors.404');
   }
 
