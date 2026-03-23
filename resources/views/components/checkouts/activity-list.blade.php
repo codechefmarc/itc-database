@@ -54,7 +54,7 @@
               </span>
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-              {{ $activity->user->full_name }}
+              {{ $activity->user?->full_name }}
             </td>
             <td class="px-6 py-4">
               <div class="text-sm text-gray-900">{{ $activity->notes }}</div>
@@ -63,17 +63,17 @@
             @auth
               @if(auth()->user()->can('laptops.edit'))
                   <div class="text-center text-sm text-gray-900">
-                    <a class="text-blue-500 text-lg font-semibold hover:text-gray-800" title="Edit activity" href="{{ route('activities.edit', $activity->id) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <a class="text-blue-500 text-lg font-semibold hover:text-gray-800" title="Edit activity" href="{{ route('checkouts.activities.edit', $activity->id) }}"><i class="fa-solid fa-pen-to-square"></i></a>
                   </div>
               @endif
               @if(auth()->user()->can('laptops.admin'))
                   <div class="text-center text-sm text-gray-900">
-                    <a class="text-blue-500 text-lg font-semibold hover:text-gray-800" title="Edit device" href="{{ route('devices.edit', $activity->device->id) }}"><i class="fa-solid fa-laptop-file"></i></a>
+                    <a class="text-blue-500 text-lg font-semibold hover:text-gray-800" title="Edit device" href="{{ route('checkouts.devices.edit', $activity->device->id) }}"><i class="fa-solid fa-laptop-file"></i></a>
                   </div>
               @endif
             @endauth
               <div class="text-center text-sm text-gray-900">
-                <a class="text-blue-500 text-lg font-semibold hover:text-gray-800" title="Show all activity for this device" href="{{ route('search', ['srjc_tag' => $activity->device->srjc_tag, 'serial_number' => $activity->device->serial_number, 'status_id' => 'any', 'current_status_only' => 'off']) }}"><i class="fa-solid fa-magnifying-glass"></i></a>
+                <a class="text-blue-500 text-lg font-semibold hover:text-gray-800" title="Show all activity for this device" href="{{ route('checkouts.search', ['srjc_tag' => $activity->device->srjc_tag, 'serial_number' => $activity->device->serial_number, 'status_id' => 'any', 'current_status_only' => 'off']) }}"><i class="fa-solid fa-magnifying-glass"></i></a>
               </div>
             </td>
           </tr>
@@ -92,7 +92,7 @@
 
   @if($activities !== null && $activities->count() > 0)
     <div class="m-4 text-right">
-      <a href="{{ route('export.activities', request()->query()) }}"
+      <a href="{{ route('checkouts.export.activities', request()->query()) }}"
         class="inline-flex items-center px-4 py-2 bg-green-400 cursor-pointer hover:bg-green-700 hover:text-white text-black-200 text-xs font-medium rounded-md">
         📊 Export CSV
       </a>

@@ -5,7 +5,7 @@
 
 <div class="max-w-7xl mx-auto px-4 py-8">
   <p class="text-gray-500 mb-6 text-sm">Paste SRJC tags or serial numbers from the library export one per line, and select the incoming status.</p>
-  <form method="POST" action="{{ route('admin.library_comparison.compare') }}" id="compareForm">
+  <form method="POST" action="{{ route('checkouts.library_comparison.compare') }}" id="compareForm">
     @csrf
 
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
@@ -55,7 +55,7 @@
               class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold py-2 px-4 rounded-lg transition-colors">
               Run Comparison
           </button>
-          <a href="{{ route('admin.library_comparison.reset') }}"
+          <a href="{{ route('checkouts.library_comparison.reset') }}"
             class="text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 px-4 py-2 ml-3">
             Reset
           </a>
@@ -87,7 +87,7 @@
   <div class="flex gap-3 mb-4">
 
       @if($counts->get('mismatch', 0) > 0)
-          <form method="POST" action="{{ route('admin.library_comparison.update-all') }}">
+          <form method="POST" action="{{ route('checkouts.library_comparison.update-all') }}">
               @csrf
               @foreach($results as $row)
                   @if($row['result_type'] === 'mismatch')
@@ -103,7 +103,7 @@
       @endif
 
       @if($counts->get('delete_flag', 0) > 0)
-          <form method="POST" action="{{ route('admin.library_comparison.flag-all') }}">
+          <form method="POST" action="{{ route('checkouts.library_comparison.flag-all') }}">
             <input type="hidden" name="note" value="{{ session('lc_incoming_status') }}">
 
               @csrf
@@ -244,7 +244,7 @@
                           {{-- MISMATCH: update status --}}
                           @if($row['result_type'] === 'mismatch')
                           <div class="flex items-center gap-2">
-                            <form method="POST" action="{{ route('admin.library_comparison.update-status') }}">
+                            <form method="POST" action="{{ route('checkouts.library_comparison.update-status') }}">
                                     @csrf
                                     <input type="hidden" name="device_id" value="{{ $row['device']->id }}">
                                     <input type="hidden" name="status_id" value="{{ $row['mapped_status']->id }}">
@@ -254,7 +254,7 @@
                                         Update Status
                                     </button>
                                 </form>
-                                <a class="text-blue-500 text-lg font-semibold hover:text-gray-800" title="Show all activity for this device" target="_blank" href="{{ route('search', ['srjc_tag' => $row['device']->srjc_tag, 'serial_number' => $row['device']->serial_number, 'status_id' => 'any', 'current_status_only' => 'off']) }}"><i class="fa-solid fa-magnifying-glass"></i></a>
+                                <a class="text-blue-500 text-lg font-semibold hover:text-gray-800" title="Show all activity for this device" target="_blank" href="{{ route('checkouts.search', ['srjc_tag' => $row['device']->srjc_tag, 'serial_number' => $row['device']->serial_number, 'status_id' => 'any', 'current_status_only' => 'off']) }}"><i class="fa-solid fa-magnifying-glass"></i></a>
                           </div>
                           {{-- NOT FOUND: add device modal trigger --}}
                           @elseif($row['result_type'] === 'not_found')
@@ -262,13 +262,13 @@
                                 $isSerial = preg_match('/[a-zA-Z]/', $row['identifier']);
                               @endphp
 
-                              <form method="POST" action="{{ route('log') }}">
+                              <form method="POST" action="{{ route('checkouts.log') }}">
                                 @csrf
                                 <input type="hidden" name="srjc_tag" value="{{ $isSerial ? '' : $row['identifier'] }}">
                                 <input type="hidden" name="serial_number" value="{{ $isSerial ? $row['identifier'] : '' }}">
                                 <input type="hidden" name="status_id" value="{{ $row['mapped_status']?->id }}">
                                 <input type="hidden" name="username" value="{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}">
-                                <input type="hidden" name="return_url" value="{{ route('admin.library_comparison.recompare') }}">
+                                <input type="hidden" name="return_url" value="{{ route('checkouts.library_comparison.recompare') }}">
                                 <button type="submit"
                                     class="inline-flex items-center gap-1 rounded-md bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-3 py-1.5 transition-colors">
                                     Add Device
@@ -277,7 +277,7 @@
 
                           {{-- DELETE FLAG: flag for review --}}
                           @elseif($row['result_type'] === 'delete_flag' || $row['result_type'] === 'missing_from_library')
-                              <form method="POST" action="{{ route('admin.library_comparison.flag-device') }}">
+                              <form method="POST" action="{{ route('checkouts.library_comparison.flag-device') }}">
                                   @csrf
                                   <input type="hidden" name="device_id" value="{{ $row['device']->id }}">
                                   <input type="hidden" name="note" value="{{ session('lc_incoming_status') }}">
@@ -300,7 +300,7 @@
       </div>
   @endisset
 
-<x-device-modal />
+<x-checkouts.device-modal />
 
 </div>
 

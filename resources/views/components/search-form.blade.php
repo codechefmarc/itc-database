@@ -112,7 +112,7 @@ class="max-w-2xl mx-auto">
         @endif
       </div>
       <div class="flex items-center justify-end gap-4 w-full">
-        <a href="{{ route('search') }}" class="text-sm text-gray-900 cursor-pointer">Reset</a>
+        <a href="{{ route('checkouts.search') }}" class="text-sm text-gray-900 cursor-pointer">Reset</a>
 
         <button @click="toggle()"
                 type="button"
@@ -135,7 +135,7 @@ class="max-w-2xl mx-auto">
 
   {{-- Expanded View: Full Search Form --}}
   <form method="GET"
-        action="{{ route('search') }}"
+        action="{{ route('checkouts.search') }}"
         x-show="!collapsed"
         x-transition:enter="transition ease-out duration-200"
         x-transition:enter-start="opacity-0 translate-y-2"
@@ -355,7 +355,7 @@ class="max-w-2xl mx-auto">
       <button type="submit" class="mt-6 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
         Search
       </button>
-      <a href="{{ route('search') }}" class="ml-3 text-gray-900 cursor-pointer">Reset</a>
+      <a href="{{ route('checkouts.search') }}" class="ml-3 text-gray-900 cursor-pointer">Reset</a>
   </form>
 </div>
 <script>
@@ -365,7 +365,7 @@ class="max-w-2xl mx-auto">
       e.stopPropagation();
       e.stopImmediatePropagation();
 
-      window.location.href = "{{ route('search') }}";
+      window.location.href = "{{ route('checkouts.search') }}";
     }
   }, true); // Use capture phase (true) to catch event before extensions.
 

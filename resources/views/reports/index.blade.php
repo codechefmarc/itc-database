@@ -13,7 +13,7 @@
       <li>
         @auth
           @if(auth()->user()->can('laptops.admin'))
-            <a class="text-blue-500" href="{{ route('admin.flagged_devices.index') }}">
+            <a class="text-blue-500" href="{{ route('checkouts.flagged_devices.index') }}">
           @endif
         @endauth
         Flagged for Review / Deletion
@@ -34,9 +34,9 @@
         @foreach($active_device_model_counts as $device)
           @php
             if ($device->computerModel == "Unknown Model") {
-              $link = route('search', [ 'show_empty_models' => 'true', 'current_status_only' => 'on', 'status_id' => 'not_surplus']);
+              $link = route('checkouts.search', [ 'show_empty_models' => 'true', 'current_status_only' => 'on', 'status_id' => 'not_surplus']);
             } else {
-              $link = route('search', [ 'computer_model_id' => $device->computerModel, 'current_status_only' => 'on', 'status_id' => 'not_surplus']);
+              $link = route('checkouts.search', [ 'computer_model_id' => $device->computerModel, 'current_status_only' => 'on', 'status_id' => 'not_surplus']);
             }
           @endphp
           <li>
@@ -54,9 +54,9 @@
         @foreach($surplus_device_model_counts as $device)
           @php
             if ($device->computerModel == "Unknown Model") {
-              $link = route('search', [ 'show_empty_models' => 'true', 'current_status_only' => 'on', 'status_id' => $surplus_status_id]);
+              $link = route('checkouts.search', [ 'show_empty_models' => 'true', 'current_status_only' => 'on', 'status_id' => $surplus_status_id]);
             } else {
-              $link = route('search', [ 'computer_model_id' => $device->computerModel, 'current_status_only' => 'on', 'status_id' => $surplus_status_id]);
+              $link = route('checkouts.search', [ 'computer_model_id' => $device->computerModel, 'current_status_only' => 'on', 'status_id' => $surplus_status_id]);
             }
           @endphp
           <li>
@@ -74,9 +74,9 @@
         @foreach($devices_by_age as $device)
           @php
             if ($device->model_name == "Unknown Model") {
-              $link = route('search', [ 'show_empty_models' => 'true', 'current_status_only' => 'on', 'status_id' => 'not_surplus']);
+              $link = route('checkouts.search', [ 'show_empty_models' => 'true', 'current_status_only' => 'on', 'status_id' => 'not_surplus']);
             } else {
-              $link = route('search', [ 'computer_model_id' => $device->computer_model_id, 'current_status_only' => 'on', 'status_id' => 'not_surplus']);
+              $link = route('checkouts.search', [ 'computer_model_id' => $device->computer_model_id, 'current_status_only' => 'on', 'status_id' => 'not_surplus']);
             }
           @endphp
           <li>
@@ -91,7 +91,7 @@
     <h3 class="font-bold text-xl text-gray-600 mb-3">Current Activity by Status</h3>
     <ul>
     @foreach($status_counts as $status)
-      <li><a class="text-blue-500" href="{{ route('search', ['status_id' => $status->status_id, 'current_status_only' => 'on']) }}"> {{ $status->status_name }}</a> ({{ $status->device_count }})</li>
+      <li><a class="text-blue-500" href="{{ route('checkouts.search', ['status_id' => $status->status_id, 'current_status_only' => 'on']) }}"> {{ $status->status_name }}</a> ({{ $status->device_count }})</li>
     @endforeach
 
     </ul>
@@ -100,7 +100,7 @@
     <ul>
       @foreach($pool_counts_current as $pool)
         <li>
-          <a class="text-blue-500" href="{{ route('search', ['pool_id' => $pool->pool_id, 'current_status_only' => 'on']) }}"> {{ $pool->pool_name }}</a> ({{ $pool->device_count }})
+          <a class="text-blue-500" href="{{ route('checkouts.search', ['pool_id' => $pool->pool_id, 'current_status_only' => 'on']) }}"> {{ $pool->pool_name }}</a> ({{ $pool->device_count }})
         </li>
       @endforeach
     </ul>

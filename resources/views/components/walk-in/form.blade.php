@@ -1,5 +1,5 @@
 
-<form method="POST" action="{{ route('walk_in_log.store') }}" class="max-w-7xl mx-auto bg-white p-8 rounded-lg shadow-md">
+<form method="POST" action="{{ route('walk_in.store') }}" class="max-w-7xl mx-auto bg-white p-8 rounded-lg shadow-md">
   @csrf
   <div class="space-y-6">
 
@@ -101,7 +101,7 @@
     {{ $buttonText ?? 'Add Walk In Log Entry' }}
   </button>
   @if (isset($walkIn))
-    <a href="{{ route('walk_in_log.index') }}" class="ml-4 text-sm/6 font-semibold text-gray-900 cursor-pointer">
+    <a href="{{ route('walk_in.index') }}" class="ml-4 text-sm/6 font-semibold text-gray-900 cursor-pointer">
       Cancel
     </a>
   @endif

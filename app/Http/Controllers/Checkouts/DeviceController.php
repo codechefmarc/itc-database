@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Checkouts;
 
-use App\Models\ComputerModel;
+use App\Http\Controllers\Controller;
 use App\Models\Device;
 use App\Models\Pool;
 use Illuminate\Http\Request;
@@ -19,7 +19,7 @@ class DeviceController extends Controller {
   public function edit(Device $device) {
     $returnUrl = url()->previous();
     $pools = Pool::all();
-    return view('device.edit', [
+    return view('checkouts.device.edit', [
       'device'   => $device,
       'pools'    => $pools,
       'returnUrl' => $returnUrl,
@@ -52,7 +52,7 @@ class DeviceController extends Controller {
       'pool_id'           => $validated['pool_id'],
     ]);
 
-    $returnUrl = $request->get('return_url', route('log'));
+    $returnUrl = $request->get('return_url', route('checkouts.log'));
     return redirect($returnUrl)->with('success', 'Device successfully updated.');
   }
 
@@ -61,7 +61,7 @@ class DeviceController extends Controller {
    */
   public function delete(Device $device) {
     $device->delete();
-    return redirect()->route('log')->with('success', 'Device and associated activities deleted.');
+    return redirect()->route('checkouts.log')->with('success', 'Device and associated activities deleted.');
   }
 
 }

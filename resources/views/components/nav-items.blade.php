@@ -19,11 +19,11 @@
 @endphp
 
 @can('laptops.edit')
-<a href="{{ route('log') }}" class="{{ $link }} {{ request()->routeIs('log') ? 'bg-indigo-50 text-indigo-700' : '' }}">Log Checkout</a>
+<a href="{{ route('checkouts.log') }}" class="{{ $link }} {{ request()->routeIs('log') ? 'bg-indigo-50 text-indigo-700' : '' }}">Log Checkout</a>
 @endcan
 
 @can('walkin.edit')
-<a href="{{ route('walk_in_log.index') }}" class="{{ $link }} {{ request()->routeIs('walk_in_log.index') ? 'bg-indigo-50 text-indigo-700' : '' }}">Log Walk-In</a>
+<a href="{{ route('walk_in.index') }}" class="{{ $link }} {{ request()->routeIs('walk_in_log.index') ? 'bg-indigo-50 text-indigo-700' : '' }}">Log Walk-In</a>
 @endcan
 
 @canany(['laptops.reports', 'walkin.reports'])
@@ -36,7 +36,7 @@
   </button>
   <div x-show="open" x-cloak x-transition class="{{ $dropdownMenu }}">
     @can('laptops.reports')
-    <a href="{{ route('search') }}" class="{{ $dropdownItem }}">Search Checkouts</a>
+    <a href="{{ route('checkouts.search') }}" class="{{ $dropdownItem }}">Search Checkouts</a>
     @endcan
     @can('laptops.reports')
     <a href="{{ route('reports.checkout_laptops') }}" class="{{ $dropdownItem }}">Laptop Reports</a>
@@ -65,15 +65,15 @@
     <a href="{{ route('admin.roles.index') }}" class="{{ $dropdownItem }}">Manage Roles</a>
     @endcan
     @can('laptops.admin')
-    <a href="{{ route('admin.flagged_devices.index') }}" class="{{ $dropdownItem }}">Flagged Devices</a>
+    <a href="{{ route('checkouts.flagged_devices.index') }}" class="{{ $dropdownItem }}">Flagged Devices</a>
     @endcan
     @can('laptops.admin')
-    <a href="{{ route('admin.library_comparison.index') }}" class="{{ $dropdownItem }}">Library Comparison</a>
+    <a href="{{ route('checkouts.library_comparison.index') }}" class="{{ $dropdownItem }}">Library Comparison</a>
     @endcan
     @can('laptops.admin')
     <div class="{{ $mobile ? 'pl-2' : 'border-t border-gray-100 mt-1 pt-1' }}">
       @if(!$mobile)<p class="px-4 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wide">Taxonomy</p>@endif
-      <a href="{{ route('computer-models.index') }}" class="{{ $dropdownItem }}">Computer Models</a>
+      <a href="{{ route('taxonomy.computer_models.index') }}" class="{{ $dropdownItem }}">Computer Models</a>
       <a href="{{ route('taxonomy.status.index') }}" class="{{ $dropdownItem }}">Statuses</a>
       <a href="{{ route('taxonomy.pool.index') }}" class="{{ $dropdownItem }}">Pools</a>
       <a href="{{ route('taxonomy.support_category.index') }}" class="{{ $dropdownItem }}">Support Categories</a>

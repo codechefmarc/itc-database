@@ -21,9 +21,11 @@ return Application::configure(basePath: dirname(__DIR__))
       then: function () {
         Route::middleware('web')->group(base_path('routes/auth.php'));
         Route::middleware('web')->group(base_path('routes/admin.php'));
+        Route::middleware('web')->group(base_path('routes/checkouts.php'));
         Route::middleware('web')->group(base_path('routes/reports.php'));
+        Route::middleware('web')->group(base_path('routes/taxonomy.php'));
         Route::middleware('web')->group(base_path('routes/walk-in.php'));
-        Route::middleware('web')->group(base_path('routes/devices.php'));
+        Route::middleware('web')->group(base_path('routes/last.php'));
       }
   )
   ->withMiddleware(function (Middleware $middleware): void {

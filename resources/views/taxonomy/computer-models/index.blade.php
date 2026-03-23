@@ -6,7 +6,7 @@
 <div class="bg-white shadow-lg rounded-lg overflow-hidden">
   <div class="bg-gray-50 px-6 py-4 border-b border-gray-200 flex items-center justify-between">
     <h2 class="text-xl font-semibold text-gray-800">Computer Models ({{ $models->total() }})</h2>
-    <a href="{{ route('computer-models.create') }}" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500">
+    <a href="{{ route('taxonomy.computer_models.create') }}" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500">
       + Add Model
     </a>
   </div>
@@ -48,10 +48,10 @@
               {{ $model->devices_count }}
             </td>
             <td class="px-6 py-4 flex gap-3 justify-center">
-              <a class="text-blue-500 text-lg hover:text-gray-800" title="Edit model" href="{{ route('computer-models.edit', $model->id) }}">
+              <a class="text-blue-500 text-lg hover:text-gray-800" title="Edit model" href="{{ route('taxonomy.computer_models.edit', $model->id) }}">
                 <i class="fa-solid fa-pen-to-square"></i>
               </a>
-              <a class="text-blue-500 text-lg hover:text-gray-800" title="Edit model" href="{{ route('search', [ 'computer_model_id' => $model->id, 'current_status_only' => 'on', 'status_id' => 'not_surplus']) }}">
+              <a class="text-blue-500 text-lg hover:text-gray-800" title="Edit model" href="{{ route('checkouts.search', [ 'computer_model_id' => $model->id, 'current_status_only' => 'on', 'status_id' => 'not_surplus']) }}">
                 <i class="fa-solid fa-magnifying-glass"></i>
               </a>
             </td>

@@ -11,7 +11,7 @@
   <input type="checkbox" id="hideSurplus" class="mb-4" onChange="toggleSurplus()">
   <label for="hideSurplus" class="text-sm text-gray-500 mb-6">Hide devices marked as surplus</label>
 
-  <form method="POST" action="{{ route('admin.flagged_devices.bulk_destroy') }}" id="bulkForm">
+  <form method="POST" action="{{ route('checkouts.flagged_devices.bulk_destroy') }}" id="bulkForm">
     @csrf
     @method('DELETE')
 
@@ -55,9 +55,9 @@
                 @endif
               </td>
               <td class="px-4 py-3 text-gray-500 text-xs">{{ $device->updated_at->format('m/d/Y') }}</td>
-              <td class="px-4 py-3">
+              <td class="px-4 py-3 flex">
               <div class="flex items-center space-x-2">
-                <form method="POST" action="{{ route('admin.flagged_devices.destroy', $device) }}">
+                <form method="POST" action="{{ route('checkouts.flagged_devices.destroy', $device) }}">
                     @csrf
                     @method('DELETE')
                     <button type="submit"
@@ -66,9 +66,20 @@
                       Delete
                     </button>
                   </form>
-                  <a class="text-blue-500 text-lg font-semibold hover:text-gray-800" title="Show all activity for this device" target="_blank" href="{{ route('search', ['srjc_tag' => $device->srjc_tag, 'serial_number' => $device->serial_number, 'status_id' => 'any', 'current_status_only' => 'off']) }}"><i class="fa-solid fa-magnifying-glass"></i></a>
+                  <a class="text-blue-500 text-lg font-semibold hover:text-gray-800" title="Show all activity for this device" target="_blank" href="{{ route('checkouts.search', ['srjc_tag' => $device->srjc_tag, 'serial_number' => $device->serial_number, 'status_id' => 'any', 'current_status_only' => 'off']) }}"><i class="fa-solid fa-magnifying-glass"></i></a>
               </div>
+              <form class="justify-self-end" method="POST" action="{{ route('checkouts.flagged_devices.remove_flag', $device) }}">
+                @csrf
+                @method('POST')
+                <button type="submit"
+                  onclick="return confirm('Remove flag from {{ $device->srjc_tag }}?')"
+                  class="inline-flex items-center text-xs font-semibold px-3 py-1.5"
+                >
+                  Remove Flag
+                </button>
+                </form>
               </td>
+
             </tr>
           @endforeach
         </tbody>
@@ -84,7 +95,7 @@
           🗑 Delete Selected (<span id="selectedCount">0</span>)
         </button>
         <div class="text-right">
-          <a href="{{ route('export.flagged-devices') }}"
+          <a href="{{ route('checkouts.export.flagged-devices') }}"
             class="inline-flex items-center px-4 py-2 bg-green-400 cursor-pointer hover:bg-green-700 hover:text-white text-black-200 text-xs font-medium rounded-md">
             📊 Export CSV
           </a>

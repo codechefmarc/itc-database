@@ -67,19 +67,19 @@
                     Permissions
                     <span class="text-gray-400 font-normal">(select all that apply)</span>
                 </label>
-                <div class="border border-gray-300 rounded-md px-4 py-3 grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-6">
-                    @foreach($permissions as $permission)
-                        <div class="flex items-center gap-2">
+                <div class="border border-gray-300 rounded-md px-4 py-3">
+                    @foreach($permissions as $key => $permissionDesc)
+                        <div class="flex gap-2">
                             <input
                                 type="checkbox"
                                 id="permission_{{ $loop->index }}"
                                 name="permissions[]"
-                                value="{{ $permission }}"
+                                value="{{ $key }}"
                                 class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-                                {{ in_array($permission, old('permissions', isset($role) ? $role->permissions->pluck('name')->toArray() : [])) ? 'checked' : '' }}
+                                {{ in_array($key, old('permissions', isset($role) ? $role->permissions->pluck('name')->toArray() : [])) ? 'checked' : '' }}
                             >
                             <label for="permission_{{ $loop->index }}" class="text-sm text-gray-700 font-mono cursor-pointer">
-                                {{ $permission }}
+                                {{ $permissionDesc }}
                             </label>
                         </div>
                     @endforeach

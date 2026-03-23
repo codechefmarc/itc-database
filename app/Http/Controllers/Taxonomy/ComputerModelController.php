@@ -53,7 +53,7 @@ class ComputerModelController extends Controller {
 
     ComputerModel::create($validated);
 
-    return redirect()->route('computer-models.index')
+    return redirect()->route('taxonomy.computer_models.index')
       ->with('success', 'Computer model added successfully.');
   }
 
@@ -89,7 +89,7 @@ class ComputerModelController extends Controller {
 
     $model->update($validated);
 
-    return redirect()->route('computer-models.index')
+    return redirect()->route('taxonomy.computer_models.index')
       ->with('success', 'Computer model updated successfully.');
   }
 
@@ -98,13 +98,13 @@ class ComputerModelController extends Controller {
    */
   public function delete(ComputerModel $model) {
     if ($model->devices()->exists()) {
-      return redirect()->route('computer-models.index')
+      return redirect()->route('taxonomy.computer_models.index')
         ->with('error', 'Cannot delete a model that has devices assigned to it.');
     }
 
     $model->delete();
 
-    return redirect()->route('computer-models.index')
+    return redirect()->route('taxonomy.computer_models.index')
       ->with('success', 'Computer model deleted.');
   }
 

@@ -60,7 +60,7 @@
               @if(auth()->user()->can('data-entry'))
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="text-sm text-gray-900 text-center">
-                    <a class="text-blue-500 text-lg font-semibold hover:text-gray-800" title="Edit device" href="{{ route('devices.edit', $device->id) }}"><i class="fa-solid fa-laptop-file"></i></a>
+                    <a class="text-blue-500 text-lg font-semibold hover:text-gray-800" title="Edit device" href="{{ route('checkouts.devices.edit', $device->id) }}"><i class="fa-solid fa-laptop-file"></i></a>
                   </div>
                 </td>
               @endif
@@ -83,7 +83,7 @@
   @endif
 
   <div class="m-4 text-right">
-    <a href="{{ route('export.devices', request()->query()) }}"
+    <a href="{{ route('checkouts.export.devices', request()->query()) }}"
       class="inline-flex items-center px-4 py-2 bg-green-400 cursor-pointer hover:bg-green-700 hover:text-white text-black-200 text-xs font-medium rounded-md">
       📊 Export CSV
     </a>

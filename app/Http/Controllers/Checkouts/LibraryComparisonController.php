@@ -44,7 +44,7 @@ class LibraryComparisonController extends Controller {
    */
   public function reset() {
     session()->forget(['lc_identifiers', 'lc_incoming_status', 'lc_search_type', 'lc_results']);
-    return redirect()->route('admin.library_comparison.index');
+    return redirect()->route('checkouts.library_comparison.index');
   }
 
   /**
@@ -81,7 +81,7 @@ class LibraryComparisonController extends Controller {
    */
   public function reCompare() {
     if (!session()->has('lc_identifiers')) {
-      return redirect()->route('admin.library_comparison.index');
+      return redirect()->route('checkouts.library_comparison.index');
     }
 
     if (session('lc_search_type') === 'search_type_missing') {
@@ -155,7 +155,7 @@ class LibraryComparisonController extends Controller {
 
     session(['lc_results' => $results]);
 
-    return redirect()->route('admin.library_comparison.index');
+    return redirect()->route('checkouts.library_comparison.index');
   }
 
   /**
@@ -193,7 +193,7 @@ class LibraryComparisonController extends Controller {
 
     session(['lc_results' => $results]);
 
-    return redirect()->route('admin.library_comparison.index');
+    return redirect()->route('checkouts.library_comparison.index');
   }
 
   /**
@@ -208,11 +208,11 @@ class LibraryComparisonController extends Controller {
     Activity::create([
       'device_id' => $request->device_id,
       'status_id' => $request->status_id,
-      'username' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
+      'uid' => Auth::user()->id,
       'notes' => 'Status updated via library comparison tool.',
     ]);
 
-    return redirect()->route('admin.library_comparison.recompare')
+    return redirect()->route('checkouts.library_comparison.recompare')
       ->with('success', 'Status updated successfully.');
   }
 
@@ -308,7 +308,7 @@ class LibraryComparisonController extends Controller {
       ]);
     }
 
-    return redirect()->route('admin.library_comparison.recompare')
+    return redirect()->route('checkouts.library_comparison.recompare')
       ->with('success', count($request->updates) . ' devices updated successfully.');
   }
 
@@ -328,7 +328,7 @@ class LibraryComparisonController extends Controller {
         'flag_note'          => $request->note,
       ]);
 
-    return redirect()->route('admin.library_comparison.recompare')
+    return redirect()->route('checkouts.library_comparison.recompare')
       ->with('success', count($request->device_ids) . ' devices flagged for review.');
   }
 

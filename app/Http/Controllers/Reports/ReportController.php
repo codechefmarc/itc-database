@@ -382,21 +382,26 @@ class ReportController extends Controller {
 
     if ($startDate && $endDate) {
       if ($shift === 'outside') {
-        $query->where(function ($q) use ($startDate, $endDate) {
-            $q->whereBetween('created_at', [
-              $startDate . ' 00:00:00',
-              $endDate . ' 08:59:59',
-            ])->orWhereBetween('created_at', [
-              $startDate . ' 17:00:00',
-              $endDate . ' 23:59:59',
-            ]);
+        $query->whereBetween('created_at', [
+          $startDate . ' 00:00:00',
+          $endDate . ' 23:59:59',
+        ])->where(function ($q) {
+          $q->whereRaw("TIME(created_at) < '09:00:00'")
+            ->orWhereRaw("TIME(created_at) >= '17:00:00'");
         });
       }
       else {
         $query->whereBetween('created_at', [
-          $startDate . $timePeriodStart,
-          $endDate . $timePeriodEnd,
+          $startDate . ' 00:00:00',
+          $endDate . ' 23:59:59',
         ]);
+
+        if ($shift) {
+          $query->whereRaw("TIME(created_at) BETWEEN ? AND ?", [
+            ltrim($timePeriodStart),
+            ltrim($timePeriodEnd),
+          ]);
+        }
       }
     }
 

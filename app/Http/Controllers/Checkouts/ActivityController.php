@@ -73,7 +73,7 @@ class ActivityController extends Controller {
       }
       else {
         // Device doesn't exist and we don't have creation data yet.
-        session(['device_return_url' => request()->input('return_url', route('log'))]);
+        session(['device_return_url' => request()->input('return_url', route('checkouts.log'))]);
         return redirect()->back()
           ->withInput()
           ->with('device_not_found', TRUE)
@@ -116,7 +116,7 @@ class ActivityController extends Controller {
 
     // Saves the status for ease of adding multiple devices one after another.
     session(['saved_status' => $validated['status_id']]);
-    $returnUrl = request()->input('return_url', route('log'));
+    $returnUrl = request()->input('return_url', route('checkouts.log'));
     return redirect($returnUrl)->with('success', 'Activity successfully added.');
   }
 
@@ -150,7 +150,7 @@ class ActivityController extends Controller {
       'notes' => $validated['notes'],
     ]);
 
-    $returnUrl = $request->get('return_url', route('log'));
+    $returnUrl = $request->get('return_url', route('checkouts.log'));
     return redirect($returnUrl)->with('success', 'Activity successfully updated.');
   }
 
@@ -159,7 +159,7 @@ class ActivityController extends Controller {
    */
   public function delete(Activity $activity, Request $request) {
     $activity->delete();
-    $returnUrl = $request->get('return_url', route('log'));
+    $returnUrl = $request->get('return_url', route('checkouts.log'));
     return redirect($returnUrl)->with('success', 'Activity deleted.');
   }
 

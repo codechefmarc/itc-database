@@ -29,7 +29,7 @@ class FlaggedDeviceController extends Controller {
   public function destroy(Device $device) {
     $device->delete();
 
-    return redirect()->route('admin.flagged_devices.index')
+    return redirect()->route('checkouts.flagged_devices.index')
       ->with('success', "Device {$device->srjc_tag} and all associated activities deleted.");
   }
 
@@ -46,8 +46,21 @@ class FlaggedDeviceController extends Controller {
     $count = $devices->count();
     $devices->each->delete();
 
-    return redirect()->route('admin.flagged_devices.index')
+    return redirect()->route('checkouts.flagged_devices.index')
       ->with('success', $count . ' devices permanently deleted.');
+  }
+
+  /**
+   * Remove flag.
+   */
+  public function removeFlag($did) {
+    $device = Device::findOrFail($did);
+
+    $device->update([
+      'flagged_for_review' => 0,
+      'flag_note' => NULL,
+    ]);
+    return redirect(route('checkouts.flagged_devices.index'))->with('success', 'Flag removed.');
   }
 
 }

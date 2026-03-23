@@ -47,7 +47,7 @@
     </button>
 
     @if(request('user_id') || request('model_type'))
-        <a href="{{ route('reports.access_log') }}" class="px-4 py-2 bg-gray-200 text-gray-700 text-sm rounded hover:bg-gray-300">
+        <a href="{{ route('admin.access_log') }}" class="px-4 py-2 bg-gray-200 text-gray-700 text-sm rounded hover:bg-gray-300">
             Clear
         </a>
     @endif

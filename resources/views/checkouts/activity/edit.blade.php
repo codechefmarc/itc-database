@@ -3,7 +3,7 @@
   Edit Activity
 </x-slot:heading>
 
-<form method="POST" action="{{ route('activities.patch', $activity->id) }}">
+<form method="POST" action="{{ route('checkouts.activities.patch', $activity->id) }}">
   @csrf
   @method('PATCH')
   <input type="hidden" name="return_url" value="{{ $returnUrl }}">
@@ -38,9 +38,9 @@
     <div class="mt-6 sm:flex max-w-2xl items-center justify-between">
       <div class="flex items-center gap-x-6 justify-self-end">
         <button type="submit" class="ml-3 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Update</button>
-        <a href="{{ route('log') }}" class="text-sm/6 font-semibold text-gray-900 cursor-pointer">Cancel</a>
+        <a href="{{ route('checkouts.log') }}" class="text-sm/6 font-semibold text-gray-900 cursor-pointer">Cancel</a>
       </div>
-      @if(auth()->user()->can('data-entry'))
+      @if(auth()->user()->can('laptops.admin'))
       <div class="flex flex-col gap-3">
         <div class="flex-col items-center">
           <button
@@ -55,7 +55,7 @@
   </div>
 </form>
 
-<form id="delete-activity-form" method="POST" action="{{ route('activities.delete', $activity->id) }}" class="hidden">
+<form id="delete-activity-form" method="POST" action="{{ route('checkouts.activities.delete', $activity->id) }}" class="hidden">
   @csrf
   @method('DELETE')
   <input type="hidden" name="return_url" value="{{ $returnUrl }}">

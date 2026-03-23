@@ -5,7 +5,7 @@
         <h3 class="text-lg font-semibold text-gray-900">Duplicate Activity Detected</h3>
         <p class="text-sm text-gray-600 mt-1">This device is currently set to <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full text-neutral-50 {{ session('duplicate_activity.tailwind_class') }}">{{ session('duplicate_activity.status_name') }}</span> as of {{ session('duplicate_activity.activity_date') }}. Do you want to add another activity with this same status?</p>
       </div>
-      <form method="POST" action="{{ route('log') }}">
+      <form method="POST" action="{{ route('checkouts.log') }}">
         @csrf
         <input type="hidden" name="force_duplicate" value="1">
         <input type="hidden" name="status_id" value="{{ session('duplicate_activity.status_id') }}" />
@@ -14,7 +14,7 @@
         <input type="hidden" name="notes" value="{{ session('duplicate_activity.notes') }}" />
 
         <div class="px-6 py-4 border-t border-gray-200 flex gap-2 justify-end space-x-3">
-          <a href="{{ route('log') }}" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200">
+          <a href="{{ route('checkouts.log') }}" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200">
             Cancel
           </a>
           <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700">
@@ -35,7 +35,7 @@
       e.stopPropagation();
       e.stopImmediatePropagation();
 
-      window.location.href = "{{ route('log') }}";
+      window.location.href = "{{ route('checkouts.log') }}";
     }
   }, true); // Use capture phase (true) to catch event before extensions.
   </script>

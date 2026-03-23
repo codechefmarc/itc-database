@@ -45,10 +45,10 @@ class LoginController extends Controller {
       $request->session()->regenerate();
       $user = Auth::user();
       if ($user->can('laptops.edit')) {
-        return redirect()->to(route('log'));
+        return redirect()->to(route('checkouts.log'));
       }
       elseif ($user->can('laptops.reports')) {
-        return redirect()->to(route('search'));
+        return redirect()->to(route('checkouts.search'));
       }
       elseif ($user->can('walkin.reports')) {
         return redirect()->to(route('reports.walk_in_log'));

@@ -3,7 +3,7 @@
   {{ isset($model) ? 'Edit Computer Model' : 'Add Computer Model' }}
 </x-slot:heading>
 
-<form method="POST" action="{{ isset($model) ? route('computer-models.patch', $model->id) : route('computer-models.store') }}">
+<form method="POST" action="{{ isset($model) ? route('taxonomy.computer_models.patch', $model->id) : route('computer-models.store') }}">
   @csrf
   @if(isset($model))
     @method('PATCH')
@@ -101,7 +101,7 @@
         <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
           {{ isset($model) ? 'Update' : 'Save Model' }}
         </button>
-        <a href="{{ route('computer-models.index') }}" class="text-sm/6 font-semibold text-gray-900">Cancel</a>
+        <a href="{{ route('taxonomy.computer_models.index') }}" class="text-sm/6 font-semibold text-gray-900">Cancel</a>
       </div>
 
       @isset($model)
@@ -122,7 +122,7 @@
 </form>
 
 @isset($model)
-  <form id="delete-model-form" method="POST" action="{{ route('computer-models.delete', $model->id) }}" class="hidden">
+  <form id="delete-model-form" method="POST" action="{{ route('taxonomy.computer_models.delete', $model->id) }}" class="hidden">
     @csrf
     @method('DELETE')
   </form>

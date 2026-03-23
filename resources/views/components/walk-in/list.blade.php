@@ -88,8 +88,8 @@
 
             @if($type === 'Active')
               <td class="text-center px-6 py-4 whitespace-nowrap text-sm font-medium">
-                <a href="{{ route('walk_in_log.edit', $walkIn->id) }}" class="block m-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white py-1 px-3 text-sm">Edit & Complete</a>
-                <form action="{{ route('walk_in_log.complete', $walkIn->id) }}" method="POST" class="inline-block">
+                <a href="{{ route('walk_in.edit', $walkIn->id) }}" class="block m-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white py-1 px-3 text-sm">Edit & Complete</a>
+                <form action="{{ route('walk_in.complete', $walkIn->id) }}" method="POST" class="inline-block">
                   @csrf
                   @method('PATCH')
                   <button type="submit" class="block rounded-md bg-green-600 hover:bg-green-700 text-white py-1 px-3 text-sm">Complete</button>
