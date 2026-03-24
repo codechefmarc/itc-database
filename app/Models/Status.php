@@ -21,7 +21,7 @@ class Status extends Model {
    * Statuses have many activities.
    */
   public function activities() {
-    return $this->hasMany(Activity::class);
+    return $this->hasMany(Activity::class, 'status_id');
   }
 
   /**

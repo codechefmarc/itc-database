@@ -43,6 +43,7 @@ class StatusController extends Controller {
    */
   public function edit(Status $status) {
     $returnUrl = url()->previous();
+    $status = $status->loadCount('activities');
     return view('taxonomy.status.form', [
       'status' => $status,
       'returnUrl' => $returnUrl,
@@ -74,5 +75,20 @@ class StatusController extends Controller {
 
     return response()->json(['success' => true]);
 }
+
+/**
+   * Delete a status. Only allowed if no activities are assigned to it.
+   */
+  public function destroy(Status $status) {
+    if ($status->activities()->exists()) {
+      return redirect()->route('taxonomy.status.index')
+        ->with('error', 'Cannot delete a status that has activities assigned to it.');
+    }
+
+    $status->delete();
+
+    return redirect()->route('taxonomy.status.index')
+      ->with('success', 'Status deleted.');
+  }
 
 }

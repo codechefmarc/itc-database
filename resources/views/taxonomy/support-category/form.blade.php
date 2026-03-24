@@ -64,8 +64,31 @@
           </button>
           <a href="{{ route('taxonomy.support_category.index') }}" class="text-sm/6 font-semibold text-gray-900 cursor-pointer">Cancel</a>
         </div>
+
+        @isset($supportCategory)
+        @if($supportCategory->walk_in_logs_count === 0)
+          <button
+            form="delete-support-category-form"
+            class="text-red-500 font-bold cursor-pointer"
+            onclick="return confirm('Are you sure you want to delete this support category?')"
+          >Delete Support Category</button>
+        @else
+          <span class="text-sm text-gray-400" title="Cannot delete a model that has devices assigned to it.">
+            Delete unavailable ({{ $supportCategory->walk_in_logs_count }} {{ Str::plural('walk-in', $supportCategory->walk_in_logs_count) }} assigned)
+          </span>
+        @endif
+      @endisset
+
       </div>
 
     </div>
   </form>
+
+@isset($supportCategory)
+  <form id="delete-support-category-form" method="POST" action="{{ route('taxonomy.support_category.destroy', $supportCategory->id) }}" class="hidden">
+    @csrf
+    @method('DELETE')
+  </form>
+@endisset
+
 </x-layout>

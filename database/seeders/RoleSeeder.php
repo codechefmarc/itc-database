@@ -15,8 +15,8 @@ class RoleSeeder extends Seeder {
    * Run the database seeds.
    */
   public function run() {
-    foreach (config('permissions') as $permission) {
-      Permission::firstOrCreate(['name' => $permission]);
+    foreach (config('permissions') as $key => $permission) {
+      Permission::firstOrCreate(['name' => $key]);
     }
 
     $admin = Role::firstOrCreate(['name' => 'admin', 'display_name' => 'Administrator']);

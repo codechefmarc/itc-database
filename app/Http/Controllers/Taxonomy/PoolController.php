@@ -43,6 +43,7 @@ class PoolController extends Controller {
    */
   public function edit(Pool $pool) {
     $returnUrl = url()->previous();
+    $pool = $pool->loadCount('devices');
     return view('taxonomy.pool.form', [
       'pool' => $pool,
       'returnUrl' => $returnUrl,
@@ -74,5 +75,20 @@ class PoolController extends Controller {
 
     return response()->json(['success' => true]);
 }
+
+  /**
+   * Delete a pool. Only allowed if no devices are assigned to it.
+   */
+  public function destroy(Pool $pool) {
+    if ($pool->devices()->exists()) {
+      return redirect()->route('taxonomy.pool.index')
+        ->with('error', 'Cannot delete a pool that has devices assigned to it.');
+    }
+
+    $pool->delete();
+
+    return redirect()->route('taxonomy.pool.index')
+      ->with('success', 'Pool deleted.');
+  }
 
 }

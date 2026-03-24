@@ -43,6 +43,7 @@ class SupportCategoryController extends Controller {
    */
   public function edit(SupportCategory $supportCategory) {
     $returnUrl = url()->previous();
+    $supportCategory = $supportCategory->loadCount('walkInLogs');
     return view('taxonomy.support-category.form', [
       'supportCategory' => $supportCategory,
       'returnUrl' => $returnUrl,
@@ -73,6 +74,21 @@ class SupportCategoryController extends Controller {
     }
 
     return response()->json(['success' => TRUE]);
+  }
+
+  /**
+   * Delete a category. Only allowed if no walk-ins are assigned to it.
+   */
+  public function destroy(SupportCategory $supportCategory) {
+    if ($supportCategory->walkInLogs()->exists()) {
+      return redirect()->route('taxonomy.support_category.index')
+        ->with('error', 'Cannot delete a support category that has walk-in\'s assigned to it.');
+    }
+
+    $supportCategory->delete();
+
+    return redirect()->route('taxonomy.support_category.index')
+      ->with('success', 'Support category deleted.');
   }
 
 }

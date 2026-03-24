@@ -66,8 +66,31 @@
           </button>
           <a href="{{ route('taxonomy.pool.index') }}" class="text-sm/6 font-semibold text-gray-900 cursor-pointer">Cancel</a>
         </div>
+
+      @isset($pool)
+        @if($pool->devices_count === 0)
+          <button
+            form="delete-pool-form"
+            class="text-red-500 font-bold cursor-pointer"
+            onclick="return confirm('Are you sure you want to delete this pool?')"
+          >Delete Pool</button>
+        @else
+          <span class="text-sm text-gray-400" title="Cannot delete a model that has devices assigned to it.">
+            Delete unavailable ({{ $pool->devices_count }} {{ Str::plural('device', $pool->devices_count) }} assigned)
+          </span>
+        @endif
+      @endisset
+
       </div>
 
     </div>
   </form>
+
+  @isset($pool)
+  <form id="delete-pool-form" method="POST" action="{{ route('taxonomy.pool.destroy', $pool->id) }}" class="hidden">
+    @csrf
+    @method('DELETE')
+  </form>
+@endisset
+
 </x-layout>

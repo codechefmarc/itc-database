@@ -75,10 +75,33 @@
           </button>
           <a href="{{ route('taxonomy.status.index') }}" class="text-sm/6 font-semibold text-gray-900 cursor-pointer">Cancel</a>
         </div>
+
+      @isset($status)
+        @if($status->activities_count === 0)
+          <button
+            form="delete-status-form"
+            class="text-red-500 font-bold cursor-pointer"
+            onclick="return confirm('Are you sure you want to delete this status?')"
+          >Delete Status</button>
+        @else
+          <span class="text-sm text-gray-400" title="Cannot delete a model that has devices assigned to it.">
+            Delete unavailable ({{ $status->activities_count }} {{ Str::plural('activity', $status->activities_count) }} assigned)
+          </span>
+        @endif
+      @endisset
+
+
       </div>
 
     </div>
   </form>
+
+  @isset($status)
+  <form id="delete-status-form" method="POST" action="{{ route('taxonomy.status.destroy', $status->id) }}" class="hidden">
+    @csrf
+    @method('DELETE')
+  </form>
+@endisset
 
   @push('footer_scripts')
     @vite('resources/js/taxonomy.js')
