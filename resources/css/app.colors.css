@@ -1,0 +1,123 @@
+/*
+ * ITC Database — Brand Color System
+ *
+ * Usage examples:
+ *   bg-navy-600        text-crimson-700      border-slate-300
+ *   bg-amber-50        text-charcoal-600     ring-cobalt-400
+ */
+
+@theme {
+
+  /* ─── PRIMARY ─────────────────────────────────────────── */
+
+  /* Navy — action buttons, links */
+  --color-navy-50:  #EBEDEF;
+  --color-navy-100: #D2D6DC;
+  --color-navy-200: #A8B0BC;
+  --color-navy-300: #7E8A9B;
+  --color-navy-400: #526279;
+  --color-navy-500: #2D405C;
+  --color-navy-600: #081F40; /* ← base */
+  --color-navy-700: #061833;
+  --color-navy-800: #041226;
+  --color-navy-900: #030C19;
+
+  /* Crimson — delete actions, error messages */
+  --color-crimson-50:  #F8EDEE;
+  --color-crimson-100: #EFD6D9;
+  --color-crimson-200: #E1B0B5;
+  --color-crimson-300: #D28A92;
+  --color-crimson-400: #C3616C;
+  --color-crimson-500: #B63F4D;
+  --color-crimson-600: #AA1E2E; /* ← base */
+  --color-crimson-700: #881824;
+  --color-crimson-800: #66121B;
+  --color-crimson-900: #440C12;
+
+  /* Slate — outlines, borders, disabled buttons */
+  --color-slate-50:  #F6F7F7;
+  --color-slate-100: #EBEDED;
+  --color-slate-200: #D9DCDC;
+  --color-slate-300: #C7CBCC;
+  --color-slate-400: #B4B9BA;
+  --color-slate-500: #A4AAAB;
+  --color-slate-600: #959B9D; /* ← base */
+  --color-slate-700: #777C7D;
+  --color-slate-800: #595D5E;
+  --color-slate-900: #3B3E3E;
+
+  /* ─── SECONDARY ───────────────────────────────────────── */
+
+  /* Amber — warning messages */
+  --color-amber-50:  #FCF5ED;
+  --color-amber-100: #F9EAD8;
+  --color-amber-200: #F4D7B3;
+  --color-amber-300: #EFC38E;
+  --color-amber-400: #EAAF67;
+  --color-amber-500: #E69E47;
+  --color-amber-600: #E28D27; /* ← base */
+  --color-amber-700: #B4701F;
+  --color-amber-800: #875417;
+  --color-amber-900: #5A380F;
+
+  /* Cobalt — secondary actions, status */
+  --color-cobalt-50:  #EEF1F5;
+  --color-cobalt-100: #D9E0EA;
+  --color-cobalt-200: #B5C3D6;
+  --color-cobalt-300: #91A6C3;
+  --color-cobalt-400: #6C88AE;
+  --color-cobalt-500: #4C6E9D;
+  --color-cobalt-600: #2D558C; /* ← base */
+  --color-cobalt-700: #244470;
+  --color-cobalt-800: #1B3354;
+  --color-cobalt-900: #122238;
+
+  /* Olive — success messages */
+  --color-olive-50:  #F3F3EE;
+  --color-olive-100: #E4E5D9;
+  --color-olive-200: #CCCEB6;
+  --color-olive-300: #B3B693;
+  --color-olive-400: #999D6E;
+  --color-olive-500: #83884F;
+  --color-olive-600: #6E7430; /* ← base */
+  --color-olive-700: #585C26;
+  --color-olive-800: #42451C;
+  --color-olive-900: #2C2E13;
+
+  /* Plum — accent, status */
+  --color-plum-50:  #F4EDF0;
+  --color-plum-100: #E7D6DF;
+  --color-plum-200: #D0B0C1;
+  --color-plum-300: #B98BA3;
+  --color-plum-400: #A16283;
+  --color-plum-500: #8D4169;
+  --color-plum-600: #7A204F; /* ← base */
+  --color-plum-700: #61193F;
+  --color-plum-800: #49132F;
+  --color-plum-900: #300C1F;
+
+  /* Charcoal — body typography */
+  --color-charcoal-50:  #F1F1F2;
+  --color-charcoal-100: #E0E1E2;
+  --color-charcoal-200: #C2C4C7;
+  --color-charcoal-300: #A5A8AC;
+  --color-charcoal-400: #868A8F;
+  --color-charcoal-500: #6C7177;
+  --color-charcoal-600: #535960; /* ← base */
+  --color-charcoal-700: #42474C;
+  --color-charcoal-800: #313539;
+  --color-charcoal-900: #212326;
+
+  /* Teal — accent, status */
+  --color-teal-50:  #EAF7F6;
+  --color-teal-100: #D1EEEC;
+  --color-teal-200: #A5DFDB;
+  --color-teal-300: #7ACFCA;
+  --color-teal-400: #4CBFB8;
+  --color-teal-500: #26B1A9;
+  --color-teal-600: #00A49A; /* ← base */
+  --color-teal-700: #00837B;
+  --color-teal-800: #00625C;
+  --color-teal-900: #00413D;
+
+}
