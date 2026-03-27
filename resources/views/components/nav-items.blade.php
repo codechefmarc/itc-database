@@ -2,20 +2,20 @@
 
 @php
   $link = $mobile
-    ? 'block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100'
-    : 'px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors';
+    ? 'block px-3 py-2 rounded-md text-sm font-medium text-charcoal-700 hover:bg-charcoal-100'
+    : 'px-3 py-2 rounded-md text-sm font-medium text-charcoal-700 hover:bg-charcoal-100 hover:text-charcoal-900 transition-colors';
 
   $dropdownBtn = $mobile
-    ? 'w-full flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100'
-    : 'flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors';
+    ? 'w-full flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium text-charcoal-700 hover:bg-charcoal-100'
+    : 'flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium text-charcoal-700 hover:bg-charcoal-100 hover:text-charcoal-900 transition-colors';
 
   $dropdownMenu = $mobile
     ? 'pl-4 mt-1 space-y-1'
-    : 'absolute left-0 mt-1 w-52 bg-white rounded-md shadow-lg border border-gray-200 py-1 z-50';
+    : 'absolute left-0 mt-1 w-52 bg-white rounded-md shadow-lg border border-charcoal-200 py-1 z-50';
 
   $dropdownItem = $mobile
-    ? 'block px-3 py-2 rounded-md text-sm text-gray-600 hover:bg-gray-100'
-    : 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50';
+    ? 'block px-3 py-2 rounded-md text-sm text-charcoal-600 hover:bg-charcoal-100'
+    : 'block px-4 py-2 text-sm text-charcoal-700 hover:bg-charcoal-50';
 @endphp
 
 @can('laptops.edit')
@@ -71,8 +71,8 @@
     <a href="{{ route('checkouts.library_comparison.index') }}" class="{{ $dropdownItem }}">Library Comparison</a>
     @endcan
     @can('laptops.admin')
-    <div class="{{ $mobile ? 'pl-2' : 'border-t border-gray-100 mt-1 pt-1' }}">
-      @if(!$mobile)<p class="px-4 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wide">Taxonomy</p>@endif
+    <div class="{{ $mobile ? 'pl-2' : 'border-t border-charcoal-100 mt-1 pt-1' }}">
+      @if(!$mobile)<p class="px-4 py-1 text-xs font-semibold text-charcoal-400 uppercase tracking-wide">Taxonomy</p>@endif
       <a href="{{ route('taxonomy.computer_models.index') }}" class="{{ $dropdownItem }}">Computer Models</a>
       <a href="{{ route('taxonomy.status.index') }}" class="{{ $dropdownItem }}">Statuses</a>
       <a href="{{ route('taxonomy.pool.index') }}" class="{{ $dropdownItem }}">Pools</a>
@@ -85,19 +85,19 @@
 
 {{-- Profile / Logout --}}
 @if(Auth::user())
-<div class="{{ $mobile ? 'border-t border-gray-200 pt-3 mt-3' : 'relative ml-2 pl-2 border-l border-gray-200' }}" x-data="{ open: false }" @click.outside="open = false">
+<div class="{{ $mobile ? 'border-t border-charcoal-200 pt-3 mt-3' : 'relative ml-2 pl-2 border-l border-charcoal-200' }}" x-data="{ open: false }" @click.outside="open = false">
   <button @click="open = !open" class="{{ $dropdownBtn }}">
     <span>Hi, {{ Auth::user()->first_name }}</span>
     <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
     </svg>
   </button>
-  <div x-show="open" x-cloak x-transition class="{{ $mobile ? 'pl-4 mt-1 space-y-1' : 'absolute right-0 mt-1 w-48 bg-white rounded-md shadow-lg border border-gray-200 py-1 z-50' }}">
+  <div x-show="open" x-cloak x-transition class="{{ $mobile ? 'pl-4 mt-1 space-y-1' : 'absolute right-0 mt-1 w-48 bg-white rounded-md shadow-lg border border-charcoal-200 py-1 z-50' }}">
     <a href="{{ route('profile.edit') }}" class="{{ $dropdownItem }}">My Profile</a>
-    <div class="{{ $mobile ? '' : 'border-t border-gray-100 mt-1 pt-1' }}">
+    <div class="{{ $mobile ? '' : 'border-t border-charcoal-100 mt-1 pt-1' }}">
       <form method="POST" action="{{ route('logout') }}">
         @csrf
-        <button type="submit" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-50">
+        <button type="submit" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-charcoal-50">
           Sign Out
         </button>
       </form>

@@ -6,9 +6,7 @@
   <x-search-form :statusFilterInfo="$statusFilterInfo" :poolName="$poolName" :modelName="$modelName" :selectedModel="$selectedModel" />
 
   @if($activities !== null)
-    <x-checkouts.activity-list :activities="$activities">
-      Activities
-    </x-checkouts.activity-list>
+    <x-checkouts.activity-list :activities="$activities" title="Activities" />
   @endif
 
   @if($devices !== null)

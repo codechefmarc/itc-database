@@ -3,7 +3,7 @@
     Style Guide
   </x-slot:heading>
 
-  <x-ui.details title="Colors">
+  <x-ui.details display="closed" title="Colors">
 
   @php
     $colors = [
@@ -27,7 +27,7 @@
   @endphp
 
   @foreach($colors as $section => $swatches)
-    <h3>{{ $section }}</h3>
+    <x-ui.heading type="h3">{{ $section }}</x-ui.heading>
     @foreach($swatches as $name => $description)
       <div class="mb-4">
         <p class="text-sm font-medium text-charcoal-600 mb-1">{{ $name }} — {{ $description }}</p>
@@ -53,7 +53,5 @@
   <x-ui.button variant="ghost">View details</x-ui.button>
   <x-ui.button size="sm">Small</x-ui.button>
   <x-ui.button disabled>Disabled</x-ui.button>
-
-
 
 </x-layout>

@@ -11,7 +11,7 @@
   @endif
 </label>
 <select
-  class="mb-2 h-[42px] block px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-900"
+  class="mb-2 h-[42px] block px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-cobalt-500 focus:border-cobalt-500 bg-white text-gray-900"
   name="status_id"
   id="status_select"
   {{ !$search ? 'required' : '' }}

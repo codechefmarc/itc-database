@@ -25,15 +25,14 @@
       this.collapsed = false;
     }
   }
-}"
-class="max-w-2xl mx-auto">
+}">
 
   {{-- Collapsed View: Active Filters Summary --}}
   <div x-show="collapsed"
        x-transition:enter="transition ease-out duration-200"
        x-transition:enter-start="opacity-0 -translate-y-2"
        x-transition:enter-end="opacity-100 translate-y-0"
-       class="bg-white p-4 rounded-lg shadow-md mb-4">
+       class="bg-white p-4 rounded-lg shadow-md mb-4 max-w-2xl mx-auto">
 
     <div class="flex items-center justify-between flex-wrap gap-3">
       <div class="flex items-center gap-3 flex-wrap w-full">
@@ -140,7 +139,7 @@ class="max-w-2xl mx-auto">
         x-transition:enter="transition ease-out duration-200"
         x-transition:enter-start="opacity-0 translate-y-2"
         x-transition:enter-end="opacity-100 translate-y-0"
-        class="bg-white p-8 rounded-lg shadow-md">
+        class="bg-white p-8 rounded-lg shadow-md max-w-2xl mx-auto">
 
     {{-- Collapse button (only show after initial search) --}}
     @if($hasSearchParams)
