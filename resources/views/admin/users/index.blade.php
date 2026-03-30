@@ -41,8 +41,8 @@
           @php $role = $user->roles->first() @endphp
           @if($role)
               <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full
-                  {{ $role->name === 'admin' ? 'bg-purple-100 text-purple-800' :
-                    ($role->name === 'read_only_laptop' || $role->name === 'read_only_support' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800') }}">
+                  {{ $role->name === 'admin' ? 'bg-plum-100 text-plum-800' :
+                    ($role->name === 'read_only_laptop' || $role->name === 'read_only_support' ? 'bg-teal-100 text-teal-800' : 'bg-charcoal-100 text-charcoal-800') }}">
                   {{ $role->display_name ?? $role->name }}
               </span>
           @else

@@ -2,7 +2,7 @@
   <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 1rem;">
     <div class="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
       <div class="px-6 py-4 border-b border-gray-200">
-        <h3 class="text-lg font-semibold text-gray-900">New Device Details</h3>
+        <x-ui.heading type="h3">New Device Details</x-ui.heading>
         <p class="text-sm text-gray-600 mt-1">This device doesn't exist yet. Please provide additional details.</p>
       </div>
       <form method="POST" action="{{ route('checkouts.log') }}">
@@ -15,64 +15,53 @@
         <input type="hidden" name="username" value="{{ old('username') }}" />
 
         <div class="px-6 py-4 space-y-4">
-          <div>
-            <label for="srjc_tag" class="block text-sm font-medium text-gray-700 mb-2">SRJC Tag</label>
-            <input
-              type="text"
-              id="srjc_tag"
-              name="srjc_tag"
-              value="{{ session('device_data.srjc_tag') ?: old('srjc_tag') }}"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            />
-            @error('srjc_tag')
-              <p class="text-xs text-red-500 font-semibold mt-1">{{ $message }}</p>
-            @enderror
-          </div>
+          <x-ui.input
+            type="text"
+            label="SRJC Tag"
+            id="srjc_tag"
+            name="srjc_tag"
+            value="{{ session('device_data.srjc_tag') ?: old('srjc_tag') }}"
+          >
+          </x-ui.input>
 
-          <div>
-            <label for="serial_number" class="block text-sm font-medium text-gray-700 mb-2">Serial Number <span class="text-red-500 text-sm">*</span></label>
-            <input
-              type="text"
-              id="serial_number"
-              name="serial_number"
-              @if(session('device_not_found') && !old('serial_number')) autofocus="autofocus" @endif
-              required
-              value="{{ session('device_data.serial_number') ?: old('serial_number') }}"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            />
-            @error('serial_number')
-              <p class="text-xs text-red-500 font-semibold mt-1">{{ $message }}</p>
-            @enderror
-          </div>
+          <x-ui.input
+            type="text"
+            label="Serial Number"
+            id="serial_number"
+            name="serial_number"
+            :autofocus="session('device_not_found') && !old('serial_number')"
+            required
+            value="{{ session('device_data.serial_number') ?: old('serial_number') }}"
+          >
+          </x-ui.input>
 
-          {{-- Replaced plain-text model_number with relational model select --}}
-          <div>
-            <x-checkouts.model-select
-              :selected="old('computer_model_id')"
-              name="computer_model_id"
-              required
-            />
-            @error('computer_model_id')
-              <p class="text-xs text-red-500 font-semibold mt-1">{{ $message }}</p>
-            @enderror
-          </div>
+          <x-checkouts.model-select
+            :selected="old('computer_model_id')"
+            name="computer_model_id"
+            required
+          />
+          @error('computer_model_id')
+            <p class="text-xs text-red-500 font-semibold mt-1">{{ $message }}</p>
+          @enderror
 
-          <div class="mb-8">
-            <x-checkouts.pool-select :selected="old('pool_id', 1)"/>
+          <x-checkouts.pool-select :selected="old('pool_id', 1)"/>
             @error('pool_id')
               <p class="text-xs text-red-500 font-semibold mt-1">{{ $message }}</p>
             @enderror
-          </div>
         </div>
+        <x-ui.button-group
+          class="justify-end"
+        >
+          <x-ui.link
+            variant="secondary"
+            href="{{ session('device_return_url', route('checkouts.log')) }}"
+          >
+          Cancel
+          </x-ui.link>
 
-        <div class="px-6 py-4 border-t border-gray-200 flex gap-2 justify-end space-x-3">
-          <a href="{{ session('device_return_url', route('checkouts.log')) }}" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200">
-            Cancel
-          </a>
-          <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700">
-            Create Device & Log Activity
-          </button>
-        </div>
+          <x-ui.button>Create Device & Log Activity</x-ui.button>
+          </x-ui.button-group>
+
       </form>
     </div>
   </div>

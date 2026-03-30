@@ -5,6 +5,7 @@
     'type'    => 'text',
     'error'   => null,
     'helper'  => null,
+    'required' => null,
 ])
 
 @php $inputId = $id ?? $name; @endphp
@@ -13,6 +14,9 @@
     @if($label)
         <label for="{{ $inputId }}" class="block text-sm font-medium text-charcoal-600 mb-1.5">
             {{ $label }}
+            @if($required)
+              <x-ui.required-star />
+            @endif
         </label>
     @endif
 

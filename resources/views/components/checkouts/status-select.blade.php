@@ -7,7 +7,7 @@
 
 <label for="status_select" class="block text-sm font-medium text-gray-700 mb-2">Status
   @if(!$search)
-    <span class="text-red-500 text-sm">*</span>
+    <x-ui.required-star />
   @endif
 </label>
 <select

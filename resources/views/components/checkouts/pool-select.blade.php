@@ -12,7 +12,7 @@
 <div class="sm:flex gap-8">
   <div>
     <select
-      class="mb-2 h-[42px] block px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-900"
+      class="mb-2 h-[42px] block px-3 py-2 border border-charcoal-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-cobalt-500 focus:border-cobalt-500 bg-white text-charcoal-900"
       id="pool_id"
       name="pool_id"
       {{ !$search ? 'required' : '' }}

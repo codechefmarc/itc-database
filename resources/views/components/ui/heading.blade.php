@@ -4,11 +4,11 @@
 
 @php
 $styles = [
-    'h1' => 'lg:text-4xl md:text-3xl sm:text-2xl',
-    'h2' => 'lg:text-3xl md:text-2xl sm:text-xl',
-    'h3' => 'lg:text-2xl md:text-xl sm:text-lg',
-    'h4' => 'lg:text-xl md:text-lg sm:text-base',
-    'h5' => 'lg:text-lg md:text-base',
+    'h1' => 'lg:text-3xl md:text-2xl sm:text-xl',
+    'h2' => 'lg:text-2xl md:text-1xl sm:text-md',
+    'h3' => 'lg:text-xl md:text-md sm:text-base',
+    'h4' => 'lg:text-xl md:text-base',
+    'h5' => 'text-base',
     'h6' => 'text-base',
 ];
 

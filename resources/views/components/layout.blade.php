@@ -26,8 +26,8 @@
     <x-nav/>
       <header class="bg-white shadow-sm">
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <h1 class="text-3xl font-bold tracking-tight text-gray-900">ITC Database</h1>
-          <h2 class="font-bold text-2xl text-gray-600">{{ $heading }}</h2>
+          <x-ui.heading type="h1">ITC Database</x-ui.heading>
+          <x-ui.heading>{{ $heading }}</x-ui.heading>
         </div>
       </header>
       <main>

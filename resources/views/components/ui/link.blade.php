@@ -1,11 +1,14 @@
 @props([
-  'type' => 'link',
+    'variant' => 'link',
+    'size'    => null,
 ])
 
 @php
-
-$classes = ($type === 'button' ? 'px-3 py-1.5 text-sm text-white bg-cobalt-500 hover:bg-cobalt-800 inline-flex items-center gap-2 font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2' : 'text-cobalt-500 hover:text-cobalt-800')
-
+$styles  = require resource_path('views/components/ui/shared/button-styles.php');
+$isLink  = $variant === 'link';
+$classes = $isLink
+    ? $styles['variants']['link']
+    : $styles['base'] . ' ' . ($styles['variants'][$variant] ?? $styles['variants']['primary']) . ' ' . ($size ? $styles['sizes'][$size] : $styles['sizes']['md']);
 @endphp
 
 <a {{ $attributes->merge(['class' => $classes]) }}>{{ $slot }}</a>
